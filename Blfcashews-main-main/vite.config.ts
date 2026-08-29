@@ -10,7 +10,6 @@ export default defineConfig({
   vite: {
     server: {
       host: "0.0.0.0",
-      allowedHosts: ["blfcashews-main.onrender.com", "localhost", "127.0.0.1"],
     },
     resolve: {
       alias: {

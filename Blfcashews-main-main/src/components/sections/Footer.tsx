@@ -7,7 +7,13 @@ export function Footer() {
   const { t } = useI18n();
 
   return (
-    <footer id="contact" className="relative bg-foreground text-background overflow-hidden">
+    <footer id="contact" className="relative overflow-hidden bg-foreground text-background">
+      <div className="stars-layer" aria-hidden="true">
+        <div id="stars" />
+        <div id="stars2" />
+        <div id="stars3" />
+      </div>
+
       <div className="relative mx-auto max-w-7xl px-6 py-20">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
@@ -29,7 +35,7 @@ export function Footer() {
               {[
                 { i: Instagram, href: "https://www.instagram.com/blf_cashewnuts/" },
                 { i: Facebook, href: "#" },
-                { i: Mail, href: "mailto:hello@blfcashews.com" },
+                { i: Mail, href: "mailto:faustergilbert6@gmail.com" },
               ].map((s, i) => (
                 <a
                   key={i}
@@ -79,13 +85,13 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-2">
                 <Mail className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
-                <a href="mailto:hello@blfcashews.com" className="hover:text-gold">
-                  hello@blfcashews.com
+                <a href="mailto:faustergilbert6@gmail.com" className="hover:text-gold">
+                  faustergilbert6@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
-                <span>Arusha, Tanzania</span>
+                <span>Arusha,Njiro Tanzania</span>
               </li>
             </ul>
           </div>
@@ -100,6 +106,56 @@ export function Footer() {
           </p>
         </div>
       </div>
+
+      <style>{`
+        .stars-layer {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          opacity: 0.5;
+          pointer-events: none;
+        }
+
+        #stars,
+        #stars2,
+        #stars3 {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+
+        #stars {
+          background: transparent;
+          background-image: radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.9), transparent);
+          background-size: 250px 250px;
+          animation: stars 60s linear infinite;
+        }
+
+        #stars2 {
+          background: transparent;
+          background-image: radial-gradient(2px 2px at 40% 80%, rgba(255,255,255,0.6), transparent);
+          background-size: 300px 300px;
+          animation: stars 90s linear infinite;
+        }
+
+        #stars3 {
+          background: transparent;
+          background-image: radial-gradient(1.5px 1.5px at 70% 40%, rgba(255,255,255,0.7), transparent);
+          background-size: 350px 350px;
+          animation: stars 120s linear infinite;
+        }
+
+        @keyframes stars {
+          from {
+            transform: translateY(0);
+          }
+          to {
+            transform: translateY(20px);
+          }
+        }
+      `}</style>
     </footer>
   );
 }

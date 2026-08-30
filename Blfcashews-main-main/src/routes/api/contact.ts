@@ -67,8 +67,8 @@ export const Route = createFileRoute("/api/contact")({
             Authorization: `Bearer ${apiKey}`,
           },
           body: JSON.stringify({
-            from: "BLF Cashews <contact@blfcashews.com>",
-            to: "jofreylazaro047@gmail.com",
+            from: "BLF Cashews <faustergilbert6@gmail.com>",
+            to: "faustergilbert6@gmail.com",
             subject: `New Contact Form Submission — ${typeLabel}`,
             html,
           }),

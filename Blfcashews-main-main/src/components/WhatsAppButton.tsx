@@ -3,7 +3,7 @@ import { useI18n } from "../lib/i18n";
 import { Phone, MessageCircle, Copy, Check, type LucideIcon } from "lucide-react";
 
 const WA = "https://wa.me/255760016527";
-const BUSINESS_EMAIL = "business@cybersafe.tz";
+const BUSINESS_EMAIL = "faustergilbert6@gmail.com";
 
 export function waLink(message?: string) {
   return message ? `${WA}?text=${encodeURIComponent(message)}` : WA;

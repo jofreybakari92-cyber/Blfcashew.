@@ -7,6 +7,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { I18nProvider, ThemeProvider } from "../lib/i18n";
 
 import appCss from "../styles.css?url";
@@ -128,12 +129,40 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const [isBooting, setIsBooting] = useState(true);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIsBooting(false), 900);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <I18nProvider>
-          <Outlet />
+          <div className="relative min-h-screen bg-background text-foreground">
+            {isBooting && (
+              <div className="fixed inset-0 z-[999] flex items-center justify-center bg-background/95 backdrop-blur-sm transition-opacity duration-500">
+                <div className="flex flex-col items-center gap-5 text-center">
+                  <div className="flex items-center justify-center rounded-full border border-gold/30 bg-gold/10 p-5 shadow-[0_0_40px_rgba(177,130,47,0.25)]">
+                    <div className="h-12 w-12 animate-spin rounded-full border-4 border-gold/20 border-t-gold" />
+                  </div>
+                  <div>
+                    <div className="font-display text-2xl font-bold tracking-[0.18em] text-gold">
+                      BLF
+                    </div>
+                    <div className="mt-1 text-[10px] uppercase tracking-[0.5em] text-foreground/60">
+                      Cashews
+                    </div>
+                  </div>
+                  <div className="text-xs uppercase tracking-[0.35em] text-foreground/50">
+                    Loading
+                  </div>
+                </div>
+              </div>
+            )}
+            <Outlet />
+          </div>
         </I18nProvider>
       </ThemeProvider>
     </QueryClientProvider>

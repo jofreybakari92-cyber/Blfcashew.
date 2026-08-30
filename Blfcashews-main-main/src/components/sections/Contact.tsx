@@ -79,12 +79,222 @@ export function Contact() {
 
             {/* Contact image */}
             <div className="pt-6">
-              <img
-                src={contactImg}
-                alt="Contact BLF Cashews"
-                className="w-full max-w-md rounded-2xl shadow-2xl"
-              />
+              <div className="card contact-image-card">
+                <button
+                  className="mail"
+                  onClick={() => window.location.href = "mailto:faustergilbert6@gmail.com"}
+                  aria-label="Email BLF Cashews"
+                  type="button"
+                >
+                  <Mail className="h-5 w-5" />
+                </button>
+
+                <div className="profile-pic">
+                  <img src={contactImg} alt="BLF Cashews contact profile" />
+                </div>
+
+                <div className="bottom">
+                  <div className="content">
+                    <span className="name">BLF Cashews</span>
+                    <span className="about-me">Premium Tanzanian cashews and trusted service.</span>
+                  </div>
+
+                  <div className="bottom-bottom">
+                    <div className="social-links-container">
+                      <a href="mailto:faustergilbert6@gmail.com" aria-label="Email BLF Cashews">
+                        <Mail className="h-5 w-5" />
+                      </a>
+                      <a href="tel:+255760016527" aria-label="Call BLF Cashews">
+                        <Phone className="h-5 w-5" />
+                      </a>
+                      <a href="https://wa.me/255760016527" target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp">
+                        <Send className="h-5 w-5" />
+                      </a>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="button"
+                      onClick={() => window.open("https://wa.me/255760016527", "_blank", "noopener,noreferrer")}
+                    >
+                      Contact
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            <style>{`
+              .contact-image-card {
+                width: min(100%, 320px);
+                height: 320px;
+                background: var(--card);
+                border-radius: 32px;
+                padding: 3px;
+                position: relative;
+                box-shadow: 0 30px 40px -25px color-mix(in oklab, var(--gold) 30%, transparent);
+                transition: all 0.5s ease-in-out;
+                margin: 0 auto;
+                border: 1px solid color-mix(in oklab, var(--gold) 28%, transparent);
+              }
+
+              .contact-image-card .mail {
+                position: absolute;
+                right: 1.25rem;
+                top: 1rem;
+                background: transparent;
+                border: none;
+                z-index: 4;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--gold);
+                cursor: pointer;
+              }
+
+              .contact-image-card .mail:hover {
+                color: var(--primary);
+              }
+
+              .contact-image-card .profile-pic {
+                position: absolute;
+                width: calc(100% - 6px);
+                height: calc(100% - 6px);
+                top: 3px;
+                left: 3px;
+                border-radius: 29px;
+                z-index: 1;
+                overflow: hidden;
+                transition: all 0.5s ease-in-out 0.2s, z-index 0.5s ease-in-out 0.2s;
+              }
+
+              .contact-image-card .profile-pic img {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+                transition: all 0.5s ease-in-out 0s;
+                display: block;
+              }
+
+              .contact-image-card .bottom {
+                position: absolute;
+                bottom: 3px;
+                left: 3px;
+                right: 3px;
+                background: linear-gradient(180deg, color-mix(in oklab, var(--gold) 84%, white), var(--gold));
+                top: 80%;
+                border-radius: 29px;
+                z-index: 2;
+                box-shadow: inset 0 5px 8px rgba(0,0,0,0.08);
+                overflow: hidden;
+                transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) 0s;
+              }
+
+              .contact-image-card .bottom .content {
+                position: absolute;
+                bottom: 0;
+                left: 1.5rem;
+                right: 1.5rem;
+                height: 160px;
+              }
+
+              .contact-image-card .bottom .content .name {
+                display: block;
+                font-size: 1.2rem;
+                color: white;
+                font-weight: 700;
+              }
+
+              .contact-image-card .bottom .content .about-me {
+                display: block;
+                font-size: 0.9rem;
+                color: white;
+                margin-top: 0.9rem;
+                line-height: 1.5;
+              }
+
+              .contact-image-card .bottom .bottom-bottom {
+                position: absolute;
+                bottom: 1rem;
+                left: 1.5rem;
+                right: 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.75rem;
+              }
+
+              .contact-image-card .bottom .bottom-bottom .social-links-container {
+                display: flex;
+                gap: 0.8rem;
+                align-items: center;
+              }
+
+              .contact-image-card .bottom .bottom-bottom .social-links-container a {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                transition: transform 0.2s ease, color 0.2s ease;
+              }
+
+              .contact-image-card .bottom .bottom-bottom .social-links-container a:hover {
+                color: var(--primary);
+                transform: scale(1.2);
+              }
+
+              .contact-image-card .bottom .bottom-bottom .button {
+                background: white;
+                color: var(--primary);
+                border: none;
+                border-radius: 20px;
+                font-size: 0.65rem;
+                font-weight: 700;
+                padding: 0.45rem 0.75rem;
+                box-shadow: 0 6px 12px color-mix(in oklab, var(--gold) 18%, transparent);
+                cursor: pointer;
+              }
+
+              .contact-image-card .bottom .bottom-bottom .button:hover {
+                background: var(--primary);
+                color: var(--primary-foreground);
+              }
+
+              .contact-image-card:hover {
+                border-top-left-radius: 55px;
+              }
+
+              .contact-image-card:hover .bottom {
+                top: 20%;
+                border-radius: 80px 29px 29px 29px;
+                transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) 0.2s;
+              }
+
+              .contact-image-card:hover .profile-pic {
+                width: 100px;
+                height: 100px;
+                top: 10px;
+                left: 10px;
+                border-radius: 50%;
+                z-index: 3;
+                border: 7px solid var(--gold);
+                box-shadow: 0 8px 14px color-mix(in oklab, var(--gold) 22%, transparent);
+                transition: all 0.5s ease-in-out, z-index 0.5s ease-in-out 0.1s;
+              }
+
+              .contact-image-card:hover .profile-pic img {
+                transform: scale(2.5);
+                object-position: 0px 25px;
+                transition: all 0.5s ease-in-out 0.5s;
+              }
+
+              @media (max-width: 640px) {
+                .contact-image-card {
+                  width: min(100%, 290px);
+                  height: 290px;
+                }
+              }
+            `}</style>
 
             {/* Contact details cards */}
             <div className="grid grid-cols-1 gap-4 pt-6">

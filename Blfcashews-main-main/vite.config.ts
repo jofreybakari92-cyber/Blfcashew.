@@ -7,14 +7,9 @@ export default defineConfig({
   nitro: {
     preset: "vercel",
   },
-  vite: {
+   vite: {
     server: {
-      host: "0.0.0.0",
-    },
-    resolve: {
-      alias: {
-        "node:events": "/src/compat/events.js",
-      },
+      allowedHosts: ["blfcashews-main.onrender.com", "localhost", "127.0.0.1"],
     },
     worker: {
       format: "es",

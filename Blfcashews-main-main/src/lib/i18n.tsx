@@ -23,6 +23,7 @@ const translations = {
     whyUs: { en: "Why Us", sw: "Kwa Nini Sisi" },
     reviews: { en: "Reviews", sw: "Maoni" },
     faq: { en: "FAQ", sw: "Maswali" },
+    founder: { en: "Founder", sw: "Msingi" },
     contact: { en: "Contact", sw: "Wasiliana" },
     orderNow: { en: "Order Now", sw: "Agiza Sasa" },
     viewOrder: { en: "View Order", sw: "Angalia Oda" },

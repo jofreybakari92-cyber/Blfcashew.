@@ -1,4 +1,4 @@
-import { Instagram, Facebook, Mail, Phone, MapPin } from "lucide-react";
+import { Instagram, Facebook, Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 import { waLink } from "../WhatsAppButton";
 import logoImg from "@/assets/blf logo.jpg";
 import { useI18n } from "../../lib/i18n";
@@ -33,16 +33,22 @@ export function Footer() {
             </p>
             <div className="mt-6 flex gap-3">
               {[
-                { i: Instagram, href: "https://www.instagram.com/blf_cashewnuts/" },
-                { i: Facebook, href: "#" },
-                { i: Mail, href: "mailto:faustergilbert6@gmail.com" },
+                {
+                  i: Instagram,
+                  href: "https://www.instagram.com/blf_cashewnuts/",
+                  className: "social-instagram",
+                },
+                { i: Facebook, href: "#", className: "social-facebook" },
+                { i: Mail, href: "mailto:faustergilbert6@gmail.com", className: "social-email" },
+                { i: MessageCircle, href: waLink("Hello BLF Cashews, I would like to order."), className: "social-whatsapp" },
               ].map((s, i) => (
                 <a
                   key={i}
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-background/10 transition-colors hover:bg-gold hover:text-gold-foreground"
+                  className={`social-link ${s.className}`}
+                  aria-label="Social media link"
                 >
                   <s.i className="h-4 w-4" />
                 </a>
@@ -108,6 +114,39 @@ export function Footer() {
       </div>
 
       <style>{`
+        .social-link {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 2.5rem;
+          height: 2.5rem;
+          border-radius: 9999px;
+          color: white;
+          transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+          box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .social-link:hover {
+          transform: translateY(-2px) scale(1.04);
+          filter: brightness(1.08);
+        }
+
+        .social-instagram {
+          background: linear-gradient(135deg, #f58529 0%, #dd2a7b 45%, #8134af 70%, #515bd4 100%);
+        }
+
+        .social-facebook {
+          background: linear-gradient(135deg, #1877f2, #0a63d8);
+        }
+
+        .social-email {
+          background: linear-gradient(135deg, #d946ef, #f97316);
+        }
+
+        .social-whatsapp {
+          background: linear-gradient(135deg, #25d366, #128c7e);
+        }
+
         .stars-layer {
           position: absolute;
           inset: 0;

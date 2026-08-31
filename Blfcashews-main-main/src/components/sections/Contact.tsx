@@ -1,6 +1,6 @@
 ﻿        import { useForm, ValidationError } from "@formspree/react";
 import { useI18n } from "../../lib/i18n";
-import { Mail, Phone, Send } from "lucide-react";
+import { Mail, Phone, Send, Instagram, Facebook, MessageCircle } from "lucide-react";
 import contactImg from "@/assets/contact blf.png";
 
 export function Contact() {
@@ -101,14 +101,17 @@ export function Contact() {
 
                   <div className="bottom-bottom">
                     <div className="social-links-container">
-                      <a href="mailto:faustergilbert6@gmail.com" aria-label="Email BLF Cashews">
-                        <Mail className="h-5 w-5" />
+                      <a href="https://www.instagram.com/blf_cashewnuts/" target="_blank" rel="noreferrer" aria-label="Instagram BLF Cashews" className="contact-social contact-instagram">
+                        <Instagram className="h-4 w-4" />
                       </a>
-                      <a href="tel:+255760016527" aria-label="Call BLF Cashews">
-                        <Phone className="h-5 w-5" />
+                      <a href="#" aria-label="Facebook BLF Cashews" className="contact-social contact-facebook">
+                        <Facebook className="h-4 w-4" />
                       </a>
-                      <a href="https://wa.me/255760016527" target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp">
-                        <Send className="h-5 w-5" />
+                      <a href="mailto:faustergilbert6@gmail.com" aria-label="Email BLF Cashews" className="contact-social contact-email">
+                        <Mail className="h-4 w-4" />
+                      </a>
+                      <a href="https://wa.me/255760016527" target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" className="contact-social contact-whatsapp">
+                        <MessageCircle className="h-4 w-4" />
                       </a>
                     </div>
 
@@ -226,21 +229,41 @@ export function Contact() {
 
               .contact-image-card .bottom .bottom-bottom .social-links-container {
                 display: flex;
-                gap: 0.8rem;
+                gap: 0.55rem;
                 align-items: center;
               }
 
-              .contact-image-card .bottom .bottom-bottom .social-links-container a {
+              .contact-image-card .bottom .bottom-bottom .contact-social {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 9999px;
                 color: white;
-                transition: transform 0.2s ease, color 0.2s ease;
+                box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+                transition: transform 0.2s ease, filter 0.2s ease;
               }
 
-              .contact-image-card .bottom .bottom-bottom .social-links-container a:hover {
-                color: var(--primary);
-                transform: scale(1.2);
+              .contact-image-card .bottom .bottom-bottom .contact-social:hover {
+                transform: translateY(-2px) scale(1.05);
+                filter: brightness(1.08);
+              }
+
+              .contact-instagram {
+                background: linear-gradient(135deg, #f58529 0%, #dd2a7b 45%, #8134af 70%, #515bd4 100%);
+              }
+
+              .contact-facebook {
+                background: linear-gradient(135deg, #1877f2, #0a63d8);
+              }
+
+              .contact-email {
+                background: linear-gradient(135deg, #d946ef, #f97316);
+              }
+
+              .contact-whatsapp {
+                background: linear-gradient(135deg, #25d366, #128c7e);
               }
 
               .contact-image-card .bottom .bottom-bottom .button {

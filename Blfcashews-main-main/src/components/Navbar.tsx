@@ -11,6 +11,7 @@ const links = [
   { href: "#why", labelKey: "nav.whyUs" },
   { href: "#reviews", labelKey: "nav.reviews" },
   { href: "#faq", labelKey: "nav.faq" },
+  { href: "/founder", labelKey: "nav.founder" },
   { href: "#contact", labelKey: "nav.contact" },
 ];
 
@@ -53,6 +54,12 @@ export function Navbar() {
               <a
                 key={l.href}
                 href={l.href}
+                onClick={(e) => {
+                  if (l.href.startsWith("#")) {
+                    e.preventDefault();
+                    document.querySelector(l.href)?.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
                 className="text-sm font-medium text-amber-50/90 transition-colors hover:text-amber-200"
               >
                 {t(l.labelKey)}
@@ -113,7 +120,13 @@ export function Navbar() {
               <a
                 key={l.href}
                 href={l.href}
-                onClick={() => setOpen(false)}
+                onClick={(e) => {
+                  if (l.href.startsWith("#")) {
+                    e.preventDefault();
+                    document.querySelector(l.href)?.scrollIntoView({ behavior: "smooth" });
+                  }
+                  setOpen(false);
+                }}
                 className="rounded-lg px-3 py-2.5 text-sm font-medium text-amber-50/80 hover:bg-amber-800/30 hover:text-amber-50"
               >
                 {t(l.labelKey)}

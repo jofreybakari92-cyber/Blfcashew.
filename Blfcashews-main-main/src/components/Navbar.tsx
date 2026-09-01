@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
+import { Link, useLocation } from "@tanstack/react-router";
 import { CartButton } from "./cart/Cart";
 import { useCart } from "./cart/CartContext";
 import { useI18n, useTheme } from "../lib/i18n";
-import { Sun, Moon, Globe, Menu, X } from "lucide-react";
+import { Sun, Moon, Globe, Menu, X, Home, Package, Award, MessageSquare, HelpCircle, User } from "lucide-react";
 import blfLogo from "@/assets/blf logo.jpg";
 
 const links = [
-  { href: "#about", labelKey: "nav.about" },
-  { href: "#products", labelKey: "nav.products" },
-  { href: "#why", labelKey: "nav.whyUs" },
-  { href: "#reviews", labelKey: "nav.reviews" },
-  { href: "#faq", labelKey: "nav.faq" },
-  { href: "/founder", labelKey: "nav.founder" },
-  { href: "#contact", labelKey: "nav.contact" },
+  { href: "#about", labelKey: "nav.about", icon: Home },
+  { href: "#products", labelKey: "nav.products", icon: Package },
+  { href: "#why", labelKey: "nav.whyUs", icon: Award },
+  { href: "#reviews", labelKey: "nav.reviews", icon: MessageSquare },
+  { href: "#faq", labelKey: "nav.faq", icon: HelpCircle },
+  { href: "/founder", labelKey: "nav.founder", icon: User },
+  { href: "#contact", labelKey: "nav.contact", icon: User },
 ];
 
 export function Navbar() {
@@ -20,6 +21,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const { lang, setLang, t } = useI18n();
   const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -28,47 +30,54 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const hash = location.hash.slice(1);
+    if (hash) {
+      setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" }), 0);
+    }
+  }, [location.hash]);
+
   const toggleLang = () => setLang(lang === "en" ? "sw" : "en");
 
   return (
     <>
       <nav className="fixed top-4 left-0 flex justify-center z-50 w-screen">
         <div
-          className={`${
-            scrolled ? "w-[25vw]" : "w-[45vw]"
-          } min-w-fit gap-16 flex items-center justify-between bg-amber-900/90 dark:bg-amber-950/90 backdrop-blur-xl border border-amber-800/30 px-6 py-2.5 rounded-full shadow-2xl transition-all duration-300 ease-in-out`}
+          className="w-[calc(100%-20px)] max-w-4xl backdrop-blur-xl bg-amber-950/70 dark:bg-amber-950/80 border border-amber-700/30 px-3 py-2 rounded-full shadow-2xl flex items-center justify-between gap-2 transition-all duration-300"
+          style={{
+            boxShadow: "0 10px 30px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.1)"
+          }}
         >
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-            className="flex items-center bg-amber-50 px-4 py-1.5 rounded-full hover:opacity-80 transition-opacity cursor-pointer"
+          <Link
+            to="/"
+            className="flex items-center bg-amber-50/10 px-3 py-1.5 rounded-full hover:bg-amber-50/20 transition-colors cursor-pointer flex-shrink-0"
           >
             <img src={blfLogo} alt="BLF Logo" className="h-6 w-auto" />
-          </a>
+          </Link>
 
-          <nav className="hidden items-center gap-8 md:flex">
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={(e) => {
-                  if (l.href.startsWith("#")) {
-                    e.preventDefault();
-                    document.querySelector(l.href)?.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
-                className="text-sm font-medium text-amber-50/90 transition-colors hover:text-amber-200"
-              >
-                {t(l.labelKey)}
-              </a>
-            ))}
+          <nav className="hidden lg:flex items-center gap-1">
+            {links.map((l) => {
+              const Icon = l.icon;
+              const isHash = l.href.startsWith("#");
+              return (
+                <Link
+                  key={l.href}
+                  to={isHash ? "/" : l.href}
+                  hash={isHash ? l.href.slice(1) : undefined}
+                  onClick={() => setOpen(false)}
+                  className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-full text-amber-50/80 hover:bg-amber-100/10 hover:text-amber-50 transition-all duration-200 group"
+                  activeProps={{ className: "text-amber-50 bg-amber-100/15" }}
+                >
+                  <Icon className="h-4 w-4 transition-transform group-hover:rotate-2" />
+                  <span className="text-[10px] font-semibold leading-none">{t(l.labelKey)}</span>
+                </Link>
+              );
+            })}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <CartButton />
+            
             <label className="theme-switch" aria-label={t("nav.toggleTheme")}>
               <span className="sun">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
@@ -92,46 +101,49 @@ export function Navbar() {
               />
               <span className="slider" />
             </label>
+
             <button
               onClick={toggleLang}
               aria-label="Switch language"
-              className="flex h-10 w-10 items-center justify-center rounded-full text-amber-50/70 transition-colors hover:bg-amber-800/30 hover:text-amber-50"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-amber-50/70 transition-all hover:bg-amber-100/10 hover:text-amber-50"
             >
               <Globe className="h-4 w-4" />
-              <span className="ml-1 text-[10px] font-bold uppercase">{lang}</span>
+              <span className="ml-0.5 text-[9px] font-bold uppercase">{lang}</span>
             </button>
+
             <OrderCta />
 
             <button
               onClick={() => setOpen((o) => !o)}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-amber-50 md:hidden"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-amber-50/70 hover:bg-amber-100/10 hover:text-amber-50 lg:hidden transition-all"
               aria-label="Menu"
             >
-              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
           </div>
         </div>
       </nav>
 
       {open && (
-        <div className="fixed inset-x-0 top-18 z-40 border-t border-amber-800/30 bg-amber-950/95 backdrop-blur-xl md:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4">
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={(e) => {
-                  if (l.href.startsWith("#")) {
-                    e.preventDefault();
-                    document.querySelector(l.href)?.scrollIntoView({ behavior: "smooth" });
-                  }
-                  setOpen(false);
-                }}
-                className="rounded-lg px-3 py-2.5 text-sm font-medium text-amber-50/80 hover:bg-amber-800/30 hover:text-amber-50"
-              >
-                {t(l.labelKey)}
-              </a>
-            ))}
+        <div className="fixed inset-x-4 top-20 z-40 border border-amber-700/30 bg-amber-950/90 backdrop-blur-xl lg:hidden rounded-2xl shadow-2xl">
+          <div className="flex flex-col gap-1 p-3">
+            {links.map((l) => {
+              const Icon = l.icon;
+              const isHash = l.href.startsWith("#");
+              return (
+                <Link
+                  key={l.href}
+                  to={isHash ? "/" : l.href}
+                  hash={isHash ? l.href.slice(1) : undefined}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-amber-50/80 hover:bg-amber-100/10 hover:text-amber-50 transition-all"
+                  activeProps={{ className: "text-amber-50 bg-amber-100/15" }}
+                >
+                  <Icon className="h-4 w-4" />
+                  {t(l.labelKey)}
+                </Link>
+              );
+            })}
             <OrderCta mobile onClick={() => setOpen(false)} />
           </div>
         </div>
@@ -142,8 +154,8 @@ export function Navbar() {
           font-size: 17px;
           position: relative;
           display: inline-block;
-          width: 64px;
-          height: 34px;
+          width: 52px;
+          height: 28px;
           flex-shrink: 0;
         }
 
@@ -166,8 +178,8 @@ export function Navbar() {
         .theme-switch .slider:before {
           position: absolute;
           content: "";
-          height: 30px;
-          width: 30px;
+          height: 24px;
+          width: 24px;
           border-radius: 20px;
           left: 2px;
           bottom: 2px;
@@ -180,9 +192,9 @@ export function Navbar() {
         .theme-switch .sun,
         .theme-switch .moon {
           position: absolute;
-          width: 24px;
-          height: 24px;
-          top: 5px;
+          width: 20px;
+          height: 20px;
+          top: 4px;
           z-index: 1;
           display: flex;
           align-items: center;
@@ -190,17 +202,17 @@ export function Navbar() {
         }
 
         .theme-switch .sun {
-          left: 34px;
+          left: 28px;
         }
 
         .theme-switch .moon {
-          left: 5px;
+          left: 4px;
         }
 
         .theme-switch .sun svg,
         .theme-switch .moon svg {
-          width: 20px;
-          height: 20px;
+          width: 16px;
+          height: 16px;
           display: block;
         }
 
@@ -233,7 +245,7 @@ export function Navbar() {
         }
 
         .theme-switch input:checked + .slider:before {
-          transform: translateX(30px);
+          transform: translateX(24px);
         }
       `}</style>
     </>
@@ -254,8 +266,8 @@ function OrderCta({ mobile, onClick }: { mobile?: boolean; onClick?: () => void 
       onClick={handle}
       className={
         mobile
-          ? "mt-2 rounded-full bg-amber-700 px-5 py-3 text-center text-sm font-medium text-amber-50"
-          : "hidden rounded-full bg-amber-700 px-5 py-2.5 text-sm font-medium text-amber-50 shadow-sm transition-all hover:bg-amber-600 hover:shadow-md md:inline-flex"
+          ? "w-full mt-2 rounded-full bg-gradient-to-r from-amber-700 to-amber-600 px-5 py-3 text-center text-sm font-medium text-amber-50 shadow-lg hover:from-amber-600 hover:to-amber-500 transition-all"
+          : "hidden rounded-full bg-gradient-to-r from-amber-700 to-amber-600 px-4 py-2 text-sm font-medium text-amber-50 shadow-md hover:from-amber-600 hover:to-amber-500 hover:shadow-lg lg:inline-flex transition-all"
       }
     >
       {label}

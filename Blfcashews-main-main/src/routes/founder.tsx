@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/Navbar";
 import { CartProvider } from "@/components/cart/CartContext";
+import { CartDrawer } from "@/components/cart/Cart";
 import { Founder } from "@/components/sections/Founder";
 import { Footer } from "@/components/sections/Footer";
 
@@ -33,6 +34,7 @@ function FounderPage() {
           <Founder />
         </main>
         <Footer />
+        <CartDrawer />
       </div>
     </CartProvider>
   );

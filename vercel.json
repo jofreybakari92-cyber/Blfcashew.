@@ -1,12 +1,3 @@
 {
-  "outputDirectory": "dist",
-  "functions": {
-    "server/index.mjs": {
-      "runtime": "nodejs24.x"
-    }
-  },
-  "rewrites": [
-    { "source": "/assets/(.*)", "destination": "/client/assets/$1" },
-    { "source": "/(.*)", "destination": "/server/index.mjs" }
-  ]
+  "outputDirectory": "dist"
 }

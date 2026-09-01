@@ -166,7 +166,7 @@ export function About() {
           {/* YouTube Video Section */}
           <div className="mt-8">
             <div className="text-sm font-medium text-accent mb-3">Watch Our Story</div>
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg border border-border">
+            <div className="group relative aspect-video overflow-hidden rounded-2xl border border-border/60 shadow-2xl">
               <iframe
                 src="https://www.youtube.com/embed/lxlWowvENec?autoplay=0&rel=0&modestbranding=1"
                 title="BLF Cashews - From Farm to Table"
@@ -175,6 +175,7 @@ export function About() {
                 loading="lazy"
                 className="absolute inset-0 h-full w-full"
               />
+              <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 transition duration-300 group-hover:ring-white/20" />
             </div>
           </div>
 

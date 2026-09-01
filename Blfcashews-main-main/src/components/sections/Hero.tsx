@@ -5,7 +5,7 @@ import rawImg from "@/assets/cashews-raw.png";
 import roastedImg from "@/assets/cashews-roasted.png";
 import saltedImg from "@/assets/cashews-salted.png";
 // Use bundler-resolved URL so runtime gets the hashed asset path (Vite/modern bundlers support `?url`)
-import videoUrl from "@/assets/DVGPs3qDGgk(MP4).mp4?url";
+import videoUrl from "@/assets/DVGPs3qDGgk-MP4.mp4?url";
 import { waLink } from "../WhatsAppButton";
 import { useI18n } from "@/lib/i18n";
 
@@ -134,44 +134,31 @@ export function Hero() {
             ))}
           </div>
 
-          {/* Powered by marquee */}
-          <div className="relative z-10 w-full max-w-7xl border-t border-white/5 pt-12 overflow-hidden">
-            <div className="flex flex-col md:flex-row items-center">
-              <div className="flex items-center gap-4 border-r border-white/20 pr-8 z-20 mb-0 md:mb-0">
-                <span className="text-[10px] uppercase tracking-widest font-black text-gray-500 whitespace-nowrap leading-tight">
-                  Powered by
-                  <br />
-                  best teams
-                </span>
-              </div>
-              <div className="relative flex overflow-hidden group flex-1">
-                <div className="flex animate-marquee whitespace-nowrap gap-16 items-center">
-                  {[
-                    t("hero.partner1"),
-                    t("hero.partner2"),
-                    t("hero.partner3"),
-                    t("hero.partner4"),
-                    t("hero.partner5"),
-                    t("hero.partner6"),
-                  ]
-                    .concat([
-                      t("hero.partner1"),
-                      t("hero.partner2"),
-                      t("hero.partner3"),
-                      t("hero.partner4"),
-                      t("hero.partner5"),
-                      t("hero.partner6"),
-                    ])
-                    .map((name, i) => (
-                      <span
-                        key={i}
-                        className="text-sm font-semibold text-white/40 grayscale hover:text-white hover:opacity-100 transition-opacity"
-                      >
-                        {name}
-                      </span>
-                    ))}
+          {/* Trusted partners grid */}
+          <div className="mt-16 w-full max-w-7xl border-t border-white/5 pt-12">
+            <div className="text-center mb-8">
+              <span className="text-[10px] uppercase tracking-[0.35em] font-black text-gray-500">
+                Powered by best teams
+              </span>
+            </div>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+              {[
+                t("hero.partner1"),
+                t("hero.partner2"),
+                t("hero.partner3"),
+                t("hero.partner4"),
+                t("hero.partner5"),
+                t("hero.partner6"),
+              ].map((name) => (
+                <div
+                  key={name}
+                  className="flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 py-6 text-center backdrop-blur-sm transition-all hover:border-gold/40 hover:bg-white/10 hover:shadow-glow"
+                >
+                  <span className="text-xs font-bold uppercase tracking-widest text-white/70 transition-colors group-hover:text-white">
+                    {name}
+                  </span>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

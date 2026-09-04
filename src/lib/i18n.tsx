@@ -57,6 +57,10 @@ const translations = {
     badge: { en: "Why BLF", sw: "Kwa Nini BLF" },
     title: { en: "Quality you can", sw: "Ubora unaweza" },
     titleAccent: { en: "taste", sw: "kuonja" },
+    subtitle: {
+      en: "From Tanzanian soil to your table — every cashew tells a story of care, craft, and uncompromising standards.",
+      sw: "Kutoka ardhi ya Tanzania hadi mezani kwako — kila korosho inasimulia hadithi ya utunzaji, ufundi, na viwango visivyo na kikomo.",
+    },
     storyTitle: {
       en: "The Cashew Story — From Our Farms to Your Table",
       sw: "Hadithi ya Korosho — Kutoka Shambani Kwetu Mezani Kwako",
@@ -69,6 +73,18 @@ const translations = {
       en: "Grown under the Tanzanian sun, hand-harvested by local farming families, and roasted to perfection in small batches — every bite carries the warmth of the land and the pride of the people who grew it. When you choose BLF, you're not just eating cashews. You're tasting a legacy.",
       sw: "Inakua chini ya jua ya Tanzania, kuchuma na familia za wakulima wa enchi, na kuchoma kwa ukamilifu katika vikundi vidogo — kila bite ina joto ya ardhi na fahamu ya watu waliokua. Unapochagua BLF, huli tu korosho. Unaramba urithi.",
     },
+    promiseBadge: {
+      en: "Our Promise",
+      sw: "Ahadi Yetu",
+    },
+    promise: {
+      en: "100% natural. Zero shortcuts. Just the honest, golden taste of Tanzania — bag after bag.",
+      sw: "100% asili. Hakuna njia za mkato. Ladha ya dhahabu ya Tanzania tu — mfuko baada ya mfuko.",
+    },
+    stat1: { en: "100% Natural", sw: "100% Asili" },
+    stat2: { en: "Hand-Picked", sw: "Kuchuma kwa Mkono" },
+    stat3: { en: "Small Batch Roasted", sw: "Kuchoma kwa Vikundi" },
+    stat4: { en: "Farm to Table", sw: "Shambani hadi Mezani" },
     benefit1Title: { en: "Heart Health", sw: "Afya ya Moyo" },
     benefit1Desc: {
       en: "Rich in oleic acid & monounsaturated fats that support cardiovascular wellness.",

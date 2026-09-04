@@ -1,6 +1,4 @@
-import { Mail, Phone, MessageCircle, Instagram, Facebook } from "lucide-react";
 import coImg from "@/assets/co.jpg";
-import { waLink } from "../WhatsAppButton";
 
 export function Founder() {
   return (
@@ -92,63 +90,6 @@ export function Founder() {
                 </ul>
               </div>
 
-              <div className="space-y-4 pt-6 border-t border-foreground/10">
-                <h3 className="font-display text-lg font-bold">Connect with us</h3>
-                <div className="space-y-3">
-                  <a
-                    href="mailto:faustergilbert6@gmail.com"
-                    className="Btn"
-                    aria-label="Business Inquiries"
-                  >
-                    <span className="svgContainer">
-                      <Mail size={20} className="text-white" />
-                    </span>
-                    <span className="BG"></span>
-                    <span className="btn-text">Business Inquiries</span>
-                  </a>
-                  <a href="tel:+255760016527" className="Btn" aria-label="Call Office">
-                    <span className="svgContainer">
-                      <Phone size={20} className="text-white" />
-                    </span>
-                    <span className="BG"></span>
-                    <span className="btn-text">Call Office</span>
-                  </a>
-                  <a
-                    href={waLink("Hello, I'd like to know more about BLF Cashews")}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="Btn"
-                    aria-label="WhatsApp Message"
-                  >
-                    <span className="svgContainer">
-                      <MessageCircle size={20} className="text-white" />
-                    </span>
-                    <span className="BG"></span>
-                    <span className="btn-text">WhatsApp Message</span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex gap-3 pt-4">
-                <a
-                  href="https://www.instagram.com/blf_cashewnuts/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="Btn"
-                  aria-label="Instagram"
-                >
-                  <span className="svgContainer">
-                    <Instagram className="h-5 w-5 text-white" />
-                  </span>
-                  <span className="BG"></span>
-                </a>
-                <button type="button" className="Btn" aria-label="Facebook" onClick={() => {}}>
-                  <span className="svgContainer">
-                    <Facebook className="h-5 w-5 text-white" />
-                  </span>
-                  <span className="BG"></span>
-                </button>
-              </div>
             </div>
           </div>
         </div>

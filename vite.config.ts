@@ -12,7 +12,7 @@ export default defineConfig({
       publicDir: ".vercel/output/static",
     },
   },
-   vite: {
+  vite: {
     server: {
       allowedHosts: ["blfcashews-main.onrender.com", "localhost", "127.0.0.1"],
     },

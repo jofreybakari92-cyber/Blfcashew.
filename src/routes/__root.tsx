@@ -9,6 +9,8 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { I18nProvider, ThemeProvider } from "../lib/i18n";
+import { A11yProvider } from "../lib/a11y";
+import { AccessibilityMenu } from "@/components/AccessibilityMenu";
 
 import appCss from "../styles.css?url";
 import faviconUrl from "../assets/blf logo.jpg?url";
@@ -98,12 +100,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
       { rel: "icon", href: faviconUrl, type: "image/jpeg" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap",
       },
     ],
   }),
@@ -140,6 +147,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <I18nProvider>
+          <A11yProvider>
           <div className="relative min-h-screen bg-background text-foreground">
             {isBooting && (
               <div className="fixed inset-0 z-[999] flex items-center justify-center bg-background/95 backdrop-blur-sm transition-opacity duration-500">
@@ -162,7 +170,9 @@ function RootComponent() {
               </div>
             )}
             <Outlet />
+            <AccessibilityMenu />
           </div>
+          </A11yProvider>
         </I18nProvider>
       </ThemeProvider>
     </QueryClientProvider>

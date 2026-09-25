@@ -1,13 +1,70 @@
-import { Instagram, Facebook, Mail, Phone, MapPin, MessageCircle } from "lucide-react";
+import {
+  Instagram,
+  Facebook,
+  Mail,
+  Phone,
+  MapPin,
+  MessageCircle,
+  ExternalLink,
+  Sprout,
+} from "lucide-react";
 import { waLink } from "../WhatsAppButton";
 import logoImg from "@/assets/blf logo.jpg";
 import { useI18n } from "../../lib/i18n";
+
+const relatedLinks = [
+  {
+    name: "Ministry of Agriculture (Kilimo)",
+    href: "https://www.kilimo.go.tz/",
+    note: "Tanzania",
+  },
+  {
+    name: "Tanzania Agricultural Research Institute (TARI)",
+    href: "https://www.tari.go.tz/",
+    note: "TARI",
+  },
+  {
+    name: "Tanzania Bureau of Standards (TBS)",
+    href: "https://www.tbs.go.tz/",
+    note: "TBS",
+  },
+  {
+    name: "Sokoine University of Agriculture (SUA)",
+    href: "https://sua.ac.tz/",
+    note: "SUA",
+  },
+  {
+    name: "World Food Programme / OCHA",
+    href: "https://www.unocha.org/",
+    note: "UN",
+  },
+  {
+    name: "World Health Organization (WHO)",
+    href: "https://www.who.int/",
+    note: "WHO",
+  },
+  {
+    name: "World Bank Agriculture",
+    href: "https://www.worldbank.org/",
+    note: "World Bank",
+  },
+  {
+    name: "Mhesuma wa Miamboti ya Serikali (e-Jeshō)",
+    href: "https://emrejesho.gov.go.tz/",
+    note: "e-Jeshō",
+  },
+  {
+    name: "Huduma za Serikali kwa DijITALI",
+    href: "https://huduma.serikali.go.tz/",
+    note: "Serikali",
+  },
+];
 
 export function Footer() {
   const { t } = useI18n();
 
   return (
-    <footer id="contact" className="relative overflow-hidden bg-foreground text-background">
+    <footer id="site-footer" className="relative overflow-hidden bg-foreground text-background">
       <div className="stars-layer" aria-hidden="true">
         <div id="stars" />
         <div id="stars2" />
@@ -102,6 +159,52 @@ export function Footer() {
             </ul>
           </div>
         </div>
+
+        <section
+          aria-labelledby="footer-related-title"
+          className="mt-16 rounded-3xl border border-background/10 bg-background/5 p-6 md:p-8"
+        >
+          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h4
+                id="footer-related-title"
+                className="flex items-center gap-2 font-display text-lg font-bold"
+              >
+                <Sprout aria-hidden="true" className="h-5 w-5 text-gold" />
+                {t("footer.relatedTitle")}
+              </h4>
+              <p className="mt-2 max-w-2xl text-sm opacity-70">{t("footer.relatedDesc")}</p>
+            </div>
+            <span className="w-fit rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-gold">
+              {t("footer.relatedBadge")}
+            </span>
+          </div>
+
+          <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedLinks.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex h-full items-start justify-between gap-3 rounded-2xl border border-background/10 bg-background/5 px-4 py-3 text-left transition-all duration-300 hover:-translate-y-1 hover:border-gold/50 hover:bg-background/10"
+                >
+                  <span className="min-w-0">
+                    <span className="block text-sm font-semibold leading-snug group-hover:text-gold">
+                      {link.name}
+                    </span>
+                    <span className="mt-1 block truncate text-xs opacity-60">{link.note}</span>
+                  </span>
+                  <ExternalLink
+                    aria-hidden="true"
+                    className="mt-0.5 h-4 w-4 shrink-0 opacity-50 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-gold group-hover:opacity-100"
+                  />
+                  <span className="sr-only">(opens in a new tab)</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
 
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-background/10 pt-8 text-xs opacity-60 md:flex-row">
           <p>

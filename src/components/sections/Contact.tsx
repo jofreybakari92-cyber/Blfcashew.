@@ -323,7 +323,7 @@ export function Contact() {
             <div className="grid grid-cols-1 gap-4 pt-6">
               <a
                 href="mailto:faustergilbert6@gmail.com"
-                className="flex items-center gap-4 rounded-2xl border border-gold/20 bg-foreground/5 p-5 transition-all hover:border-gold/60 hover:bg-foreground/10"
+                className="group flex items-center gap-4 rounded-2xl border border-gold/20 bg-foreground/5 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-gold/60 hover:bg-foreground/10 hover:shadow-soft"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gold/20 text-gold">
                   <Mail className="h-5 w-5" />
@@ -336,7 +336,7 @@ export function Contact() {
 
               <a
                 href="tel:+255760016527"
-                className="flex items-center gap-4 rounded-2xl border border-gold/20 bg-foreground/5 p-5 transition-all hover:border-gold/60 hover:bg-foreground/10"
+                className="group flex items-center gap-4 rounded-2xl border border-gold/20 bg-foreground/5 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-gold/60 hover:bg-foreground/10 hover:shadow-soft"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gold/20 text-gold">
                   <Phone className="h-5 w-5" />
@@ -351,7 +351,7 @@ export function Contact() {
                 href="https://wa.me/255760016527"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 rounded-2xl border border-gold/20 bg-foreground/5 p-5 transition-all hover:border-gold/60 hover:bg-foreground/10"
+                className="group flex items-center gap-4 rounded-2xl border border-gold/20 bg-foreground/5 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-gold/60 hover:bg-foreground/10 hover:shadow-soft"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gold/20 text-gold">
                   <Send className="h-5 w-5" />

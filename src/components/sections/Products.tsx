@@ -4,6 +4,7 @@ import salted from "@/assets/cashews-salted.png";
 import honey from "@/assets/cashews-honey.png";
 import { PRODUCTS, formatTSh } from "@/components/cart/CartContext";
 import { QtyStepper } from "@/components/cart/Cart";
+import { AccentRule } from "../AccentRule";
 
 const imgs: Record<string, string> = {
   raw,
@@ -47,6 +48,10 @@ export function Products() {
             <span className="text-gradient-gold">craving</span>
           </h2>
 
+          <div className="mt-6 flex justify-center">
+            <AccentRule className="max-w-[16rem]" />
+          </div>
+
           <p className="mt-4 text-muted-foreground">
             Premium cashews, carefully prepared for every taste. Choose your
             preferred variety and quantity, then place your order through
@@ -61,7 +66,7 @@ export function Products() {
             return (
               <article
                 key={p.id}
-                className="group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition-all hover:-translate-y-2 hover:shadow-glow"
+                className="group card-lift relative flex flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-sm"
               >
                 <div className="relative aspect-square overflow-hidden">
                   <img

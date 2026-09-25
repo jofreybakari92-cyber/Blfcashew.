@@ -13,6 +13,7 @@ import { Testimonials } from "@/components/sections/Testimonials";
 import { FAQ } from "@/components/sections/FAQ";
 import { Footer } from "@/components/sections/Footer";
 import { AIRecommendations } from "@/components/ai/AIRecommendations";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,11 +36,12 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const { t } = useI18n();
   return (
     <CartProvider>
       <div className="min-h-screen">
         <Navbar />
-        <main>
+        <main id="main" tabIndex={-1} aria-label={t("nav.mainContent")}>
           <Hero />
           <About />
           <Products />

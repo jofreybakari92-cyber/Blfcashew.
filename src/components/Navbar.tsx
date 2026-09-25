@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { CartButton } from "./cart/Cart";
 import { useCart } from "./cart/CartContext";
@@ -18,16 +18,40 @@ const links = [
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const { lang, setLang, t } = useI18n();
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    onScroll();
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    const frame = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  useEffect(() => {
+    let ticking = false;
+    const update = () => {
+      const y = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setScrolled(y > 20);
+      setProgress(max > 0 ? Math.min(y / max, 1) : 0);
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -37,20 +61,66 @@ export function Navbar() {
     }
   }, [location.hash]);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const menu = document.getElementById("mobile-menu");
+      if (!menu) return;
+      const focusables = menu.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
+  const isCurrent = (href: string) => {
+    if (href.startsWith("#")) return location.hash === href;
+    return location.pathname === href;
+  };
+
   const toggleLang = () => setLang(lang === "en" ? "sw" : "en");
 
   return (
     <>
+      <a href="#main" className="skip-link">
+        {t("nav.skipToContent")}
+      </a>
+
       <nav
-        className={`fixed left-0 z-50 flex w-screen justify-center transition-all duration-500 ease-out ${
+        aria-label={t("nav.mainNav")}
+        className={`fixed left-0 z-50 flex w-screen justify-center transition-all duration-700 ease-out ${
           scrolled ? "top-2" : "top-6"
-        }`}
+        } ${mounted ? "translate-y-0 opacity-100" : "-translate-y-6 opacity-0"}`}
       >
         <div
-          className={`flex w-[calc(100%-20px)] max-w-4xl items-center justify-between gap-2 rounded-full border border-white/10 backdrop-blur-xl transition-all duration-500 ease-out ${
+          className={`relative flex w-[calc(100%-20px)] max-w-4xl items-center justify-between gap-2 overflow-hidden rounded-full border backdrop-blur-xl transition-all duration-500 ease-out ${
             scrolled
-              ? "bg-navy/95 px-3 py-1.5 shadow-2xl"
-              : "bg-navy/70 px-3 py-2.5 shadow-xl"
+              ? "border-white/20 bg-navy/95 px-3 py-1.5 shadow-2xl"
+              : "border-white/10 bg-navy/70 px-3 py-2.5 shadow-xl"
           }`}
           style={{
             boxShadow: scrolled
@@ -58,18 +128,24 @@ export function Navbar() {
               : "0 10px 30px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.1)",
           }}
         >
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 h-0.5 origin-left bg-gradient-to-r from-copper via-white to-copper transition-transform duration-150 ease-out"
+            style={{ transform: `scaleX(${progress})` }}
+          />
           <Link
             to="/"
             className="flex items-center bg-white/10 px-3 py-1.5 rounded-full hover:bg-white/20 transition-colors cursor-pointer flex-shrink-0"
           >
             <img
+              data-keep-image
               src={blfLogo}
               alt="BLF Logo"
               className={`w-auto transition-all duration-500 ease-out ${scrolled ? "h-5" : "h-6"}`}
             />
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav aria-label={t("nav.mainNav")} className="hidden lg:flex items-center gap-1">
             {links.map((l) => {
               const Icon = l.icon;
               const isHash = l.href.startsWith("#");
@@ -81,8 +157,12 @@ export function Navbar() {
                   onClick={() => setOpen(false)}
                   className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-full text-navy-foreground/80 hover:bg-white/10 hover:text-navy-foreground transition-all duration-200 group"
                   activeProps={{ className: "text-navy-foreground bg-white/15" }}
+                  aria-current={isCurrent(l.href) ? "true" : undefined}
                 >
-                  <Icon className="h-4 w-4 transition-transform group-hover:rotate-2" />
+                  <Icon
+                    aria-hidden="true"
+                    className="h-4 w-4 transition-transform group-hover:rotate-2"
+                  />
                   <span className="text-[10px] font-semibold leading-none">{t(l.labelKey)}</span>
                 </Link>
               );
@@ -118,7 +198,7 @@ export function Navbar() {
 
             <button
               onClick={toggleLang}
-              aria-label="Switch language"
+              aria-label={t("nav.switchLanguage")}
               className="flex h-8 w-8 items-center justify-center rounded-full text-navy-foreground/70 transition-all hover:bg-white/10 hover:text-navy-foreground"
             >
               <Globe className="h-4 w-4" />
@@ -128,9 +208,12 @@ export function Navbar() {
             <OrderCta />
 
             <button
+              ref={menuButtonRef}
               onClick={() => setOpen((o) => !o)}
               className="flex h-8 w-8 items-center justify-center rounded-full text-navy-foreground/70 hover:bg-white/10 hover:text-navy-foreground lg:hidden transition-all"
-              aria-label="Menu"
+              aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
             >
               {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
@@ -140,11 +223,12 @@ export function Navbar() {
 
       {open && (
         <div
+          id="mobile-menu"
           className={`fixed inset-x-4 z-40 rounded-2xl border border-white/10 bg-navy/95 backdrop-blur-xl shadow-2xl transition-all duration-500 ease-out lg:hidden ${
             scrolled ? "top-14" : "top-24"
           }`}
         >
-          <div className="flex flex-col gap-1 p-3">
+          <nav aria-label={t("nav.mobileNav")} className="flex flex-col gap-1 p-3">
             {links.map((l) => {
               const Icon = l.icon;
               const isHash = l.href.startsWith("#");
@@ -156,14 +240,15 @@ export function Navbar() {
                   onClick={() => setOpen(false)}
                   className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-navy-foreground/80 hover:bg-white/10 hover:text-navy-foreground transition-all"
                   activeProps={{ className: "text-navy-foreground bg-white/15" }}
+                  aria-current={isCurrent(l.href) ? "true" : undefined}
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon aria-hidden="true" className="h-4 w-4" />
                   {t(l.labelKey)}
                 </Link>
               );
             })}
             <OrderCta mobile onClick={() => setOpen(false)} />
-          </div>
+          </nav>
         </div>
       )}
 
@@ -284,8 +369,8 @@ function OrderCta({ mobile, onClick }: { mobile?: boolean; onClick?: () => void 
       onClick={handle}
       className={
         mobile
-          ? "w-full mt-2 rounded-full bg-gold px-5 py-3 text-center text-sm font-semibold text-gold-foreground shadow-lg hover:brightness-110 transition-all"
-          : "hidden rounded-full bg-gold px-4 py-2 text-sm font-semibold text-gold-foreground shadow-md hover:brightness-110 hover:shadow-lg lg:inline-flex transition-all"
+          ? "w-full mt-2 rounded-full bg-copper px-5 py-3 text-center text-sm font-semibold text-copper-foreground shadow-lg transition-all hover:scale-[1.03] hover:brightness-110 active:scale-95"
+          : "hidden rounded-full bg-copper px-4 py-2 text-sm font-semibold text-copper-foreground shadow-md transition-all hover:scale-[1.05] hover:brightness-110 hover:shadow-lg active:scale-95 lg:inline-flex transition-all"
       }
     >
       {label}

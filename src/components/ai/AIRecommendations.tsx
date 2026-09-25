@@ -75,7 +75,7 @@ export function AIRecommendations({
           {recommendations.map((p) => (
             <article
               key={p.id}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-gold/20 bg-card transition-all hover:-translate-y-1 hover:shadow-glow"
+              className="group card-lift relative flex flex-col overflow-hidden rounded-2xl border border-gold/20 bg-card"
             >
               <div className="relative aspect-square overflow-hidden">
                 <img

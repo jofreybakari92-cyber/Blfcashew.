@@ -1,5 +1,17 @@
-import { Heart, Brain, Shield, Dumbbell, Moon, Sparkles, Leaf } from "lucide-react";
+import { useRef } from "react";
+import {
+  Heart,
+  Brain,
+  Shield,
+  Dumbbell,
+  Moon,
+  Sparkles,
+  Leaf,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { useI18n } from "../../lib/i18n";
+import { AccentRule } from "../AccentRule";
 
 const benefits = [
   {
@@ -48,6 +60,15 @@ const promiseStats = [
 
 export function WhyUs() {
   const { t } = useI18n();
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  const scrollByCard = (direction: 1 | -1) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelector<HTMLElement>("[data-snap-item]");
+    const step = card ? card.offsetWidth + 16 : track.clientWidth * 0.8;
+    track.scrollBy({ left: direction * step, behavior: "smooth" });
+  };
 
   return (
     <section id="why" className="relative overflow-hidden py-24 md:py-32">
@@ -66,27 +87,54 @@ export function WhyUs() {
             {t("whyUs.title")}{" "}
             <span className="text-gradient-gold">{t("whyUs.titleAccent")}</span>
           </h2>
+          <div className="mt-6 flex justify-center">
+            <AccentRule className="max-w-[16rem]" />
+          </div>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground md:text-lg">
             {t("whyUs.subtitle")}
           </p>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
-          {benefits.map((b, idx) => (
-            <div
-              key={b.titleKey}
-              className="group rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-soft animate-slide-in-up"
-              style={{ animationDelay: `${idx * 0.1}s` }}
-            >
+        <div className="relative mt-16">
+          <div
+            ref={trackRef}
+            aria-label={t("whyUs.benefitsTrack")}
+            className="snap-track lg:grid lg:grid-cols-5 lg:gap-6"
+          >
+            {benefits.map((b, idx) => (
               <div
-                className={`flex h-12 w-12 items-center justify-center rounded-xl ${b.bg} ${b.color} transition-transform group-hover:scale-110`}
+                key={b.titleKey}
+                data-snap-item
+                className="group card-lift w-[16rem] rounded-2xl border border-border bg-card p-6 lg:w-auto lg:animate-slide-in-up"
+                style={{ animationDelay: `${idx * 0.1}s` }}
               >
-                <b.icon className="h-5 w-5" />
+                <div
+                  className={`flex h-12 w-12 items-center justify-center rounded-xl ${b.bg} ${b.color} transition-transform duration-300 group-hover:scale-110`}
+                >
+                  <b.icon aria-hidden="true" className="h-5 w-5" />
+                </div>
+                <h3 className="mt-5 font-display text-lg font-bold">{t(b.titleKey)}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{t(b.descKey)}</p>
               </div>
-              <h3 className="mt-5 font-display text-lg font-bold">{t(b.titleKey)}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{t(b.descKey)}</p>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={() => scrollByCard(-1)}
+            aria-label="Previous benefits"
+            className="absolute -left-3 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-soft transition-all hover:scale-110 hover:border-gold/50 active:scale-95 lg:flex"
+          >
+            <ChevronLeft aria-hidden="true" className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollByCard(1)}
+            aria-label="Next benefits"
+            className="absolute -right-3 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-soft transition-all hover:scale-110 hover:border-gold/50 active:scale-95 lg:flex"
+          >
+            <ChevronRight aria-hidden="true" className="h-4 w-4" />
+          </button>
         </div>
 
         <div className="mt-20 grid grid-cols-1 gap-12 lg:grid-cols-2">

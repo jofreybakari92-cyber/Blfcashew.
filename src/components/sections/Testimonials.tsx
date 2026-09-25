@@ -62,7 +62,7 @@ const reviews = [
 function ReviewCard({ r, idx }: { r: (typeof reviews)[0]; idx: number }) {
   return (
     <figure
-      className="group rounded-3xl bg-foreground/5 p-8 backdrop-blur-sm ring-1 ring-foreground/10 transition-all hover:bg-foreground/10 hover:-translate-y-1 animate-slide-in-up"
+      className="group card-lift rounded-3xl bg-foreground/5 p-8 backdrop-blur-sm ring-1 ring-foreground/10 hover:bg-foreground/10 animate-slide-in-up"
       style={{ animationDelay: `${idx * 0.12}s` }}
     >
       <div className="flex items-center gap-4">

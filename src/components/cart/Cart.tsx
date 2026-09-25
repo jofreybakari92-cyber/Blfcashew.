@@ -79,7 +79,7 @@ export function CartDrawer() {
                     <div className="flex items-center gap-1 rounded-full border border-border bg-card">
                       <button
                         onClick={() => remove(id)}
-                        aria-label="Decrease"
+                        aria-label={`Decrease quantity of ${p.name}`}
                         className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-muted"
                       >
                         <Minus className="h-3.5 w-3.5" />
@@ -90,11 +90,12 @@ export function CartDrawer() {
                         max={99}
                         value={qty}
                         onChange={(e) => setQty(id, parseInt(e.target.value, 10) || 0)}
+                        aria-label={`Quantity of ${p.name}`}
                         className="w-8 bg-transparent text-center text-sm font-semibold outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
                       />
                       <button
                         onClick={() => add(id)}
-                        aria-label="Increase"
+                        aria-label={`Increase quantity of ${p.name}`}
                         className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-muted"
                       >
                         <Plus className="h-3.5 w-3.5" />
@@ -148,11 +149,14 @@ export function CartDrawer() {
 export function QtyStepper({ id }: { id: string }) {
   const { items, add, remove, setOpen } = useCart();
   const qty = items[id] ?? 0;
+  const product = PRODUCTS.find((p) => p.id === id);
+  const name = product?.name ?? id;
 
   if (qty === 0) {
     return (
       <button
         onClick={() => add(id)}
+        aria-label={`Add ${name} to order`}
         className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-all hover:bg-accent"
       >
         <Plus className="h-4 w-4" /> Add to Order
@@ -165,7 +169,7 @@ export function QtyStepper({ id }: { id: string }) {
       <div className="flex flex-1 items-center justify-between rounded-full border border-primary/30 bg-primary/5 px-2 py-1.5">
         <button
           onClick={() => remove(id)}
-          aria-label="Decrease"
+          aria-label={`Decrease quantity of ${name}`}
           className="flex h-8 w-8 items-center justify-center rounded-full text-primary hover:bg-primary/10"
         >
           <Minus className="h-4 w-4" />
@@ -173,7 +177,7 @@ export function QtyStepper({ id }: { id: string }) {
         <span className="font-display text-base font-bold text-primary">{qty}</span>
         <button
           onClick={() => add(id)}
-          aria-label="Increase"
+          aria-label={`Increase quantity of ${name}`}
           className="flex h-8 w-8 items-center justify-center rounded-full text-primary hover:bg-primary/10"
         >
           <Plus className="h-4 w-4" />

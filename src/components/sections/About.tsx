@@ -1,10 +1,14 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import cho3 from "@/assets/cho3.mp4";
 import cho4 from "@/assets/cho4.mp4";
 import cho5 from "@/assets/cho5.mp4";
 import cosh from "@/assets/cosh.mp4";
 import cosh02 from "@/assets/cosh02.mp4";
 import userSpace from "@/assets/cashews-process.png";
+import { Pause, Play } from "lucide-react";
+import { AccentRule } from "../AccentRule";
+import { useA11y } from "../../lib/a11y";
+import { videoTranscripts } from "../../lib/transcripts";
 
 const slides = [
   { src: cho3, label: "Processing" },
@@ -19,6 +23,9 @@ const INTERVAL = 3500;
 export function About() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [muted, setMuted] = useState(true);
+  const { settings } = useA11y();
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   const next = useCallback(
     () => setActive((i) => (i + 1) % slides.length),
@@ -38,6 +45,17 @@ export function About() {
     return () => clearInterval(id);
   }, [next, paused]);
 
+  useEffect(() => {
+    videoRefs.current.forEach((video) => {
+      if (!video) return;
+      if (paused) {
+        video.pause();
+      } else {
+        void video.play().catch(() => undefined);
+      }
+    });
+  }, [paused, active]);
+
   return (
     <section id="about" className="relative py-24 md:py-32">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 lg:grid-cols-2">
@@ -53,6 +71,7 @@ export function About() {
             <img
               src={userSpace}
               alt=""
+              data-alt="Still frame of the cashew processing line"
               aria-hidden="true"
               className="absolute inset-0 h-full w-full object-cover"
             />
@@ -62,10 +81,14 @@ export function About() {
             {slides.map((slide, i) => (
               <video
                 key={slide.src}
+                ref={(el) => {
+                  videoRefs.current[i] = el;
+                }}
                 src={slide.src}
+                data-video-label={`${slide.label} of the BLF Cashews production process`}
                 autoPlay
                 loop
-                muted
+                muted={muted}
                 playsInline
                 poster={userSpace}
                 className="absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-in-out"
@@ -117,10 +140,67 @@ export function About() {
               </svg>
             </button>
 
+            {settings.captions && (
+              <div
+                role="status"
+                aria-live="polite"
+                className="absolute inset-x-3 bottom-16 rounded-xl bg-black/70 px-4 py-3 text-center text-xs leading-relaxed text-white backdrop-blur-sm sm:text-sm"
+              >
+                <span className="block font-semibold uppercase tracking-widest text-gold">
+                  {videoTranscripts[active].label}
+                </span>
+                <span className="mt-1 block">{videoTranscripts[active].summary}</span>
+              </div>
+            )}
+
             <div className="absolute bottom-3 left-3 rounded-full bg-black/40 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-sm">
               {active + 1} / {slides.length}
             </div>
+
+            <button
+              type="button"
+              onClick={() => {
+                const video = videoRefs.current[active];
+                if (!video) return;
+                if (video.paused) {
+                  void video.play();
+                  setPaused(false);
+                } else {
+                  video.pause();
+                  setPaused(true);
+                }
+              }}
+              aria-label={paused ? "Play video" : "Pause video"}
+              className="group/play play-pulse absolute bottom-3 right-3 flex h-11 w-11 items-center justify-center rounded-full bg-navy/80 text-white shadow-lg backdrop-blur-sm transition-transform duration-300 hover:scale-110 focus-visible:scale-110 active:scale-95"
+            >
+              {paused ? (
+                <Play className="h-4 w-4 translate-x-0.5" aria-hidden="true" />
+              ) : (
+                <Pause className="h-4 w-4" aria-hidden="true" />
+              )}
+            </button>
           </div>
+
+          {settings.captions && (
+            <details className="mt-4 rounded-2xl border border-border bg-card/70 p-4 text-sm">
+              <summary className="cursor-pointer font-semibold text-foreground">
+                Read video transcripts
+              </summary>
+              <div className="mt-3 space-y-4">
+                {videoTranscripts.map((transcript) => (
+                  <div key={transcript.label}>
+                    <h3 className="font-display text-sm font-bold text-gold">{transcript.label}</h3>
+                    <p className="mt-1 text-muted-foreground">{transcript.summary}</p>
+                    <ul className="mt-1.5 list-disc space-y-1 pl-5 text-muted-foreground">
+                      {transcript.captions.map((line) => (
+                        <li key={line}>{line}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </details>
+          )}
 
           <div className="mt-4 flex justify-center gap-2">
             {slides.map((s, i) => (
@@ -162,6 +242,8 @@ export function About() {
             </span>
           </h2>
 
+          <AccentRule className="mt-6 max-w-[14rem]" />
+
           <div className="mt-6 space-y-4 text-base leading-relaxed text-muted-foreground md:text-lg">
             <p>
               BLF Cashews is born from the sun-warmed coastal plains of
@@ -185,7 +267,7 @@ export function About() {
 
             <div className="group relative aspect-video overflow-hidden rounded-2xl border border-border/60 shadow-2xl">
               <iframe
-                src="https://www.youtube.com/embed/lxlWowvENec?autoplay=0&rel=0&modestbranding=1"
+                src="https://www.youtube.com/embed/lxlWowvENec?autoplay=0&rel=0&modestbranding=1&cc_load_policy=1"
                 title="BLF Cashews - From Farm to Table"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen

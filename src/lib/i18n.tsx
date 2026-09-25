@@ -28,6 +28,13 @@ const translations = {
     orderNow: { en: "Order Now", sw: "Agiza Sasa" },
     viewOrder: { en: "View Order", sw: "Angalia Oda" },
     toggleTheme: { en: "Toggle theme", sw: "Badilisha mandhari" },
+    switchLanguage: { en: "Switch language", sw: "Badilisha lugha" },
+    openMenu: { en: "Open menu", sw: "Fungua menyu" },
+    closeMenu: { en: "Close menu", sw: "Funga menyu" },
+    mainNav: { en: "Main navigation", sw: "Menyu kuu" },
+    mobileNav: { en: "Mobile navigation", sw: "Menyu ya simu" },
+    skipToContent: { en: "Skip to main content", sw: "Rukia hadi maudhui makuu" },
+    mainContent: { en: "Main content", sw: "Maudhui makuu" },
   },
   hero: {
     badge: { en: "Pure Tanzanian Premium", sw: "Tanzania Asili Bora" },
@@ -55,6 +62,7 @@ const translations = {
   },
   whyUs: {
     badge: { en: "Why BLF", sw: "Kwa Nini BLF" },
+    benefitsTrack: { en: "Benefits carousel", sw: "Kuruzia manufaa" },
     title: { en: "Quality you can", sw: "Ubora unaweza" },
     titleAccent: { en: "taste", sw: "kuonja" },
     subtitle: {
@@ -131,6 +139,15 @@ const translations = {
     rights: { en: "All rights reserved.", sw: "Haki zote zimehifadhiwa." },
     madeWith: { en: "Made with", sw: "Imetengenezwa na" },
     tanzania: { en: "in Tanzania", sw: "Tanzania" },
+    relatedTitle: {
+      en: "Tanzanian agriculture & food resources",
+      sw: "Rasilimali za kilimo na chakula za Tanzania",
+    },
+    relatedDesc: {
+      en: "Official bodies and research sources we trust for farming, quality and food safety.",
+      sw: "Taasisi rasmi na vyanzo vya utafiti tunaotumia kwa kilimo, ubora na usalama wa chakula.",
+    },
+    relatedBadge: { en: "Verified source", sw: "Chanzo kilichothibitishwa" },
   },
   contact: {
     badge: { en: "Get in Touch", sw: "Wasiliana Nasi" },
@@ -236,6 +253,10 @@ const I18nContext = createContext<I18nContextType>({
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>("en");
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   const t = (key: string): string => {
     const section = key.split(".")[0] as TranslationKey;

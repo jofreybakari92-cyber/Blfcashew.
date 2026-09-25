@@ -58,6 +58,9 @@ export function Hero() {
           muted
           loop
           playsInline
+          aria-hidden="true"
+          tabIndex={-1}
+          data-video-label="Decorative background footage of Tanzanian cashew farms"
           className="absolute inset-0 h-full w-full object-cover"
         >
           <source src={videoUrl} type="video/mp4" />
@@ -194,10 +197,15 @@ export function Hero() {
               { img: honeyImg, label: "Honey", sub: "Sweet & buttery" },
               { img: rawImg, label: "Raw", sub: "100% natural" },
             ].map((p) => (
-              <div
+              <button
+                type="button"
                 key={p.label}
                 onMouseEnter={() => setActiveImg(p.img)}
-                className="group/item relative flex items-center gap-1 rounded-xl p-1 pr-3 transition-all duration-300 hover:bg-white/90 cursor-pointer opacity-100 group-hover/dock:opacity-50 hover:opacity-100"
+                onFocus={() => setActiveImg(p.img)}
+                onClick={() => setActiveImg(p.img)}
+                aria-label={`Preview BLF ${p.label} cashews: ${p.sub}`}
+                aria-pressed={activeImg === p.img}
+                className="group/item relative flex items-center gap-1 rounded-xl p-1 pr-3 text-left transition-all duration-300 hover:bg-white/90 cursor-pointer opacity-100 group-hover/dock:opacity-50 hover:opacity-100"
               >
                 <div className="relative h-8 w-12 shrink-0 overflow-hidden rounded-lg border border-white/60 shadow-sm transition-transform duration-500 group-hover/item:scale-110">
                   <img
@@ -214,7 +222,7 @@ export function Hero() {
                     {p.sub}
                   </div>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         </div>

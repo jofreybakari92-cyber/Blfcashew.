@@ -4,6 +4,7 @@ import { CartProvider } from "@/components/cart/CartContext";
 import { CartDrawer } from "@/components/cart/Cart";
 import { Founder } from "@/components/sections/Founder";
 import { Footer } from "@/components/sections/Footer";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/founder")({
   head: () => ({
@@ -26,11 +27,12 @@ export const Route = createFileRoute("/founder")({
 });
 
 function FounderPage() {
+  const { t } = useI18n();
   return (
     <CartProvider>
       <div className="min-h-screen">
         <Navbar />
-        <main>
+        <main id="main" tabIndex={-1} aria-label={t("nav.mainContent")}>
           <Founder />
         </main>
         <Footer />

@@ -4,7 +4,6 @@ import honeyImg from "@/assets/cashews-honey.png";
 import rawImg from "@/assets/cashews-raw.png";
 import roastedImg from "@/assets/cashews-roasted.png";
 import saltedImg from "@/assets/cashews-salted.png";
-// Use bundler-resolved URL so runtime gets the hashed asset path (Vite/modern bundlers support `?url`)
 import videoUrl from "@/assets/DVGPs3qDGgk-MP4.mp4?url";
 import { waLink } from "../WhatsAppButton";
 import { useI18n } from "@/lib/i18n";

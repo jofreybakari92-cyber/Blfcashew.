@@ -207,6 +207,7 @@ const translations = {
     cardWhatsApp: { en: "WhatsApp", sw: "WhatsApp" },
     callOffice: { en: "Call Arusha Office", sw: "Piga Ofisi ya Arusha" },
     chatWhatsapp: { en: "Chat on WhatsApp", sw: "Zungumza WhatsApp" },
+    backToTop: { en: "Back to Top", sw: "Rudi Juu" },
   },
 } as const;
 

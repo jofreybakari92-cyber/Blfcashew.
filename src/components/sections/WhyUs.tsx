@@ -91,7 +91,7 @@ export function WhyUs() {
 
         <div className="mt-20 grid grid-cols-1 gap-12 lg:grid-cols-2">
           <div className="animate-slide-in-left">
-            <div className="relative overflow-hidden rounded-[2rem] border border-border shadow-soft">
+            <div className="relative overflow-hidden rounded-2rem border border-border shadow-soft">
               <div className="aspect-4/3 bg-linear-to-br from-primary/20 via-gold/10 to-primary/20 flex flex-col items-center justify-center p-8">
                 <div className="text-7xl mb-3 drop-shadow-sm">🌰</div>
                 <div className="font-display text-2xl font-bold text-primary">

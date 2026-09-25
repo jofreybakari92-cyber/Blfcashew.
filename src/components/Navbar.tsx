@@ -41,18 +41,32 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-4 left-0 flex justify-center z-50 w-screen">
+      <nav
+        className={`fixed left-0 z-50 flex w-screen justify-center transition-all duration-500 ease-out ${
+          scrolled ? "top-2" : "top-6"
+        }`}
+      >
         <div
-          className="w-[calc(100%-20px)] max-w-4xl backdrop-blur-xl bg-amber-950/70 dark:bg-amber-950/80 border border-amber-700/30 px-3 py-2 rounded-full shadow-2xl flex items-center justify-between gap-2 transition-all duration-300"
+          className={`flex w-[calc(100%-20px)] max-w-4xl items-center justify-between gap-2 rounded-full border border-white/10 backdrop-blur-xl transition-all duration-500 ease-out ${
+            scrolled
+              ? "bg-navy/95 px-3 py-1.5 shadow-2xl"
+              : "bg-navy/70 px-3 py-2.5 shadow-xl"
+          }`}
           style={{
-            boxShadow: "0 10px 30px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.1)"
+            boxShadow: scrolled
+              ? "0 18px 40px -12px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.12)"
+              : "0 10px 30px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.1)",
           }}
         >
           <Link
             to="/"
-            className="flex items-center bg-amber-50/10 px-3 py-1.5 rounded-full hover:bg-amber-50/20 transition-colors cursor-pointer flex-shrink-0"
+            className="flex items-center bg-white/10 px-3 py-1.5 rounded-full hover:bg-white/20 transition-colors cursor-pointer flex-shrink-0"
           >
-            <img src={blfLogo} alt="BLF Logo" className="h-6 w-auto" />
+            <img
+              src={blfLogo}
+              alt="BLF Logo"
+              className={`w-auto transition-all duration-500 ease-out ${scrolled ? "h-5" : "h-6"}`}
+            />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">
@@ -65,8 +79,8 @@ export function Navbar() {
                   to={isHash ? "/" : l.href}
                   hash={isHash ? l.href.slice(1) : undefined}
                   onClick={() => setOpen(false)}
-                  className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-full text-amber-50/80 hover:bg-amber-100/10 hover:text-amber-50 transition-all duration-200 group"
-                  activeProps={{ className: "text-amber-50 bg-amber-100/15" }}
+                  className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-full text-navy-foreground/80 hover:bg-white/10 hover:text-navy-foreground transition-all duration-200 group"
+                  activeProps={{ className: "text-navy-foreground bg-white/15" }}
                 >
                   <Icon className="h-4 w-4 transition-transform group-hover:rotate-2" />
                   <span className="text-[10px] font-semibold leading-none">{t(l.labelKey)}</span>
@@ -105,7 +119,7 @@ export function Navbar() {
             <button
               onClick={toggleLang}
               aria-label="Switch language"
-              className="flex h-8 w-8 items-center justify-center rounded-full text-amber-50/70 transition-all hover:bg-amber-100/10 hover:text-amber-50"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-navy-foreground/70 transition-all hover:bg-white/10 hover:text-navy-foreground"
             >
               <Globe className="h-4 w-4" />
               <span className="ml-0.5 text-[9px] font-bold uppercase">{lang}</span>
@@ -115,7 +129,7 @@ export function Navbar() {
 
             <button
               onClick={() => setOpen((o) => !o)}
-              className="flex h-8 w-8 items-center justify-center rounded-full text-amber-50/70 hover:bg-amber-100/10 hover:text-amber-50 lg:hidden transition-all"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-navy-foreground/70 hover:bg-white/10 hover:text-navy-foreground lg:hidden transition-all"
               aria-label="Menu"
             >
               {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
@@ -125,7 +139,11 @@ export function Navbar() {
       </nav>
 
       {open && (
-        <div className="fixed inset-x-4 top-20 z-40 border border-amber-700/30 bg-amber-950/90 backdrop-blur-xl lg:hidden rounded-2xl shadow-2xl">
+        <div
+          className={`fixed inset-x-4 z-40 rounded-2xl border border-white/10 bg-navy/95 backdrop-blur-xl shadow-2xl transition-all duration-500 ease-out lg:hidden ${
+            scrolled ? "top-14" : "top-24"
+          }`}
+        >
           <div className="flex flex-col gap-1 p-3">
             {links.map((l) => {
               const Icon = l.icon;
@@ -136,8 +154,8 @@ export function Navbar() {
                   to={isHash ? "/" : l.href}
                   hash={isHash ? l.href.slice(1) : undefined}
                   onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-amber-50/80 hover:bg-amber-100/10 hover:text-amber-50 transition-all"
-                  activeProps={{ className: "text-amber-50 bg-amber-100/15" }}
+                  className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-navy-foreground/80 hover:bg-white/10 hover:text-navy-foreground transition-all"
+                  activeProps={{ className: "text-navy-foreground bg-white/15" }}
                 >
                   <Icon className="h-4 w-4" />
                   {t(l.labelKey)}
@@ -266,8 +284,8 @@ function OrderCta({ mobile, onClick }: { mobile?: boolean; onClick?: () => void 
       onClick={handle}
       className={
         mobile
-          ? "w-full mt-2 rounded-full bg-gradient-to-r from-amber-700 to-amber-600 px-5 py-3 text-center text-sm font-medium text-amber-50 shadow-lg hover:from-amber-600 hover:to-amber-500 transition-all"
-          : "hidden rounded-full bg-gradient-to-r from-amber-700 to-amber-600 px-4 py-2 text-sm font-medium text-amber-50 shadow-md hover:from-amber-600 hover:to-amber-500 hover:shadow-lg lg:inline-flex transition-all"
+          ? "w-full mt-2 rounded-full bg-gold px-5 py-3 text-center text-sm font-semibold text-gold-foreground shadow-lg hover:brightness-110 transition-all"
+          : "hidden rounded-full bg-gold px-4 py-2 text-sm font-semibold text-gold-foreground shadow-md hover:brightness-110 hover:shadow-lg lg:inline-flex transition-all"
       }
     >
       {label}

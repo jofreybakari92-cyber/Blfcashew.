@@ -3,6 +3,7 @@ import { Navbar } from "@/components/Navbar";
 import { CartProvider } from "@/components/cart/CartContext";
 import { CartDrawer } from "@/components/cart/Cart";
 import { ContactFab } from "@/components/WhatsAppButton";
+import { BackToTopButton } from "@/components/BackToTopButton";
 import { Contact } from "@/components/sections/Contact";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
@@ -50,6 +51,7 @@ function Index() {
         </main>
         <Footer />
         <ContactFab />
+        <BackToTopButton />
         <CartDrawer />
       </div>
     </CartProvider>

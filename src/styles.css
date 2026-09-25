@@ -122,6 +122,7 @@
 
 @layer base {
   * { border-color: var(--color-border); }
+  html, body { overflow-x: clip; }
   html {
     scroll-behavior: smooth;
     --a11y-font-scale: 100%;
@@ -133,6 +134,10 @@
   html[data-text-size="large"] { font-size: 112.5%; }
   html[data-text-size="xlarge"] { font-size: 125%; }
   html[data-text-size="xxl"] { font-size: 150%; }
+  @media (max-width: 640px) {
+    html[data-text-size="xlarge"] { font-size: 118%; }
+    html[data-text-size="xxl"] { font-size: 132%; }
+  }
 
   body {
     background-color: var(--color-background);
@@ -195,11 +200,13 @@
     );
   }
 
-  html[data-cursor="large"],
-  html[data-cursor="large"] *,
-  html[data-cursor="contrast"],
-  html[data-cursor="contrast"] * {
-    cursor: none !important;
+  @media (pointer: fine) {
+    html[data-cursor="large"],
+    html[data-cursor="large"] *,
+    html[data-cursor="contrast"],
+    html[data-cursor="contrast"] * {
+      cursor: none !important;
+    }
   }
   html[data-cursor="large"] ::selection { background: var(--color-gold); }
 
@@ -261,10 +268,12 @@
       box-shadow 0.3s ease,
       border-color 0.3s ease;
   }
-  .card-lift:hover {
-    transform: translateY(-6px);
-    border-color: color-mix(in oklab, var(--gold) 45%, var(--border));
-    box-shadow: 0 20px 45px -18px color-mix(in oklab, var(--primary) 45%, transparent);
+  @media (hover: hover) and (pointer: fine) {
+    .card-lift:hover {
+      transform: translateY(-6px);
+      border-color: color-mix(in oklab, var(--gold) 45%, var(--border));
+      box-shadow: 0 20px 45px -18px color-mix(in oklab, var(--primary) 45%, transparent);
+    }
   }
   .snap-track {
     display: flex;

@@ -112,7 +112,7 @@ export function Navbar() {
 
       <nav
         aria-label={t("nav.mainNav")}
-        className={`fixed left-0 z-50 flex w-screen justify-center transition-all duration-700 ease-out ${
+        className={`fixed inset-x-0 z-50 flex justify-center transition-all duration-700 ease-out ${
           scrolled ? "top-2" : "top-6"
         } ${mounted ? "translate-y-0 opacity-100" : "-translate-y-6 opacity-0"}`}
       >
@@ -169,7 +169,7 @@ export function Navbar() {
             })}
           </nav>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5 sm:gap-1">
             <CartButton />
             
             <label className="theme-switch" aria-label={t("nav.toggleTheme")}>
@@ -199,7 +199,7 @@ export function Navbar() {
             <button
               onClick={toggleLang}
               aria-label={t("nav.switchLanguage")}
-              className="flex h-8 w-8 items-center justify-center rounded-full text-navy-foreground/70 transition-all hover:bg-white/10 hover:text-navy-foreground"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-navy-foreground/70 transition-all hover:bg-white/10 hover:text-navy-foreground lg:h-8 lg:w-8"
             >
               <Globe className="h-4 w-4" />
               <span className="ml-0.5 text-[9px] font-bold uppercase">{lang}</span>
@@ -210,7 +210,7 @@ export function Navbar() {
             <button
               ref={menuButtonRef}
               onClick={() => setOpen((o) => !o)}
-              className="flex h-8 w-8 items-center justify-center rounded-full text-navy-foreground/70 hover:bg-white/10 hover:text-navy-foreground lg:hidden transition-all"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-navy-foreground/70 hover:bg-white/10 hover:text-navy-foreground lg:hidden transition-all"
               aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
               aria-expanded={open}
               aria-controls="mobile-menu"
@@ -260,6 +260,14 @@ export function Navbar() {
           width: 52px;
           height: 28px;
           flex-shrink: 0;
+        }
+
+        @media (max-width: 1023px) {
+          .theme-switch {
+            height: 34px;
+            transform: scale(1.12);
+            transform-origin: center;
+          }
         }
 
         .theme-switch input {

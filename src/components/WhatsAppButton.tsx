@@ -77,7 +77,7 @@ export function ContactFab() {
   ];
 
   return (
-    <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-end gap-4">
+    <div className="fixed bottom-6 right-4 z-[100] flex flex-col items-end gap-4 sm:bottom-8 sm:right-8">
       {items.map((item) => {
         const isCopied = item.key === "business" && copiedType === "business";
 
@@ -87,7 +87,7 @@ export function ContactFab() {
             className="group relative flex items-center justify-end animate-float"
             style={{ animationDelay: item.delay }}
           >
-            <span className="absolute right-20 whitespace-nowrap rounded-xl bg-emerald-700 px-4 py-2 text-xs font-bold text-white opacity-0 shadow-2xl border border-white/10 transition-all duration-300 translate-x-4 group-hover:translate-x-0 group-hover:opacity-100 pointer-events-none">
+            <span className="pointer-events-none absolute right-20 max-w-[60vw] translate-x-4 truncate rounded-xl border border-white/10 bg-emerald-700 px-4 py-2 text-xs font-bold text-white opacity-0 shadow-2xl transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
               {isCopied && item.labelCopied ? item.labelCopied : item.fieldLabel}
             </span>
 

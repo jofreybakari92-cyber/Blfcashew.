@@ -9,8 +9,8 @@ export type Product = {
 
 export const PRODUCTS: Product[] = [
   { id: "raw", name: "Raw Cashews", price: 18000, unit: "500g" },
-  { id: "roasted", name: "Roasted Cashews", price: 22000, unit: "500g" },
-  { id: "salted", name: "Salted Cashews", price: 24000, unit: "500g" },
+  { id: "roasted", name: "Roasted Cashews", price: 25000, unit: "500g" },
+  { id: "salted", name: "Salted Cashews", price: 21000, unit: "500g" },
   { id: "honey", name: "Honey Cashews", price: 28000, unit: "500g" },
 ];
 

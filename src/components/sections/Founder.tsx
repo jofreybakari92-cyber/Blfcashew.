@@ -97,7 +97,7 @@ export function Founder() {
         <div className="mt-16 grid gap-6 md:grid-cols-2">
           <div className="rounded-3xl border border-gold/20 bg-card/70 p-6 shadow-lg shadow-gold/5 backdrop-blur-sm">
             <div className="flex items-center gap-4">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-gold/30 to-primary/30 text-lg font-bold text-foreground ring-2 ring-gold/30">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full from-gold/30 to-primary/30 text-lg font-bold text-foreground ring-2 ring-gold/30">
                 MJ
               </div>
               <div>
@@ -111,7 +111,7 @@ export function Founder() {
             </p>
           </div>
 
-          <div className="rounded-3xl border border-primary/20 bg-gradient-to-br from-primary/5 to-gold/5 p-6 shadow-lg shadow-primary/10">
+          <div className="rounded-3xl border border-primary/20 from-primary/5 to-gold/5 p-6 shadow-lg shadow-primary/10">
             <p className="text-sm font-medium uppercase tracking-[0.25em] text-gold">Leadership</p>
             <h3 className="mt-3 font-display text-2xl font-bold text-foreground">
               Our Vision in Action

@@ -122,7 +122,10 @@
 
 @layer base {
   * { border-color: var(--color-border); }
-  html, body { overflow-x: clip; }
+  html, body {
+    overflow-x: clip;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
   html {
     scroll-behavior: smooth;
     --a11y-font-scale: 100%;
@@ -261,6 +264,13 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+  .navbar-motion {
+    transition:
+      top 0.5s ease-out,
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.25s ease;
+    will-change: transform, opacity;
   }
   .card-lift {
     transition:

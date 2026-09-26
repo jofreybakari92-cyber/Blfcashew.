@@ -5,7 +5,7 @@ import { CartDrawer } from "@/components/cart/Cart";
 import { ContactFab } from "@/components/WhatsAppButton";
 import { BackToTopButton } from "@/components/BackToTopButton";
 import { Contact } from "@/components/sections/Contact";
-import { AccessGuide } from "@/components/sections/AccessGuide";
+import { AppAvailability } from "@/components/sections/AppAvailability";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { Products } from "@/components/sections/Products";
@@ -51,7 +51,7 @@ function Index() {
           <Testimonials />
           <FAQ />
           <Contact />
-          <AccessGuide />
+          <AppAvailability />
         </main>
         <Footer />
         <ContactFab />

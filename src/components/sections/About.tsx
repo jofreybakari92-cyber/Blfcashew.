@@ -247,7 +247,7 @@ export function About() {
           <div className="mt-6 space-y-4 text-base leading-relaxed text-muted-foreground md:text-lg">
             <p>
               BLF Cashews is born from the sun-warmed coastal plains of
-              Tanzania, where the world&apos;s creamiest, most flavorful
+              Tanzania, where the world creamiest, most flavorful
               cashews are grown. We work directly with local farmers to bring
               you nuts that are picked at peak ripeness and processed with
               care.
@@ -255,7 +255,7 @@ export function About() {
 
             <p>
               Every batch is roasted to crisp perfection, sealed for
-              freshness, and shipped with love &mdash; a wholesome, healthy
+              freshness, and shipped with love  a wholesome, healthy
               snack made the way nature intended.
             </p>
           </div>

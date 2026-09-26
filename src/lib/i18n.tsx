@@ -149,34 +149,40 @@ const translations = {
     },
     relatedBadge: { en: "Verified source", sw: "Chanzo kilichothibitishwa" },
   },
-  access: {
-    badge: { en: "Any device", sw: "Kifaa chochote" },
-    title: { en: "Reach BLF Cashews on", sw: "Pata BLF Cashews kwenye" },
-    titleAccent: { en: "web or mobile", sw: "wavuti au simu" },
+  app: {
+    title: { en: "BLF Cashews is now available on the", sw: "BLF Cashews sasa inapatikana kwenye" },
+    titleAccent: {
+      en: "web app and mobile application",
+      sw: "programu ya wavuti na programu ya simu",
+    },
     subtitle: {
-      en: "Shop the full range from a laptop, tablet or phone. Save the site to your home screen and it opens like an app.",
-      sw: "Nunua aina zote kutoka laptop, tableti au simu. Hifadhi tovuti kwenye skrini ya mwanzo na itafunguka kama programu.",
+      en: "Shop the full range from any device. Prefer to order now? Message us on WhatsApp and we will pack it fresh the same day.",
+      sw: "Nunua aina zote kwenye kifaa chochote. Unapenda kuagiza sasa? Tuma ujumbe WhatsApp na tutapakia upya siku ile ile.",
     },
-    webTitle: { en: "On the web", sw: "Kwenye wavuti" },
-    webDesc: {
-      en: "Open the site in any modern browser to browse products, read our story and send an order.",
-      sw: "Fungua tovuti kwenye kivinjari chochote cha kisasa ili kuona bidhaa, hadithi yetu na kutuma agizo.",
+    availableOn: { en: "Available on the", sw: "Inapatikana kwenye" },
+    appleStore: { en: "App Store", sw: "App Store" },
+    getItOn: { en: "GET IT ON", sw: "IPATELE HAPA" },
+    playStore: { en: "Google Play", sw: "Google Play" },
+    appleLabel: {
+      en: "Order on WhatsApp — App Store listing coming soon",
+      sw: "Agiza kwenye WhatsApp — listing ya App Store inakuja",
     },
-    webPoint1: { en: "Works on Chrome, Safari, Edge and Firefox", sw: "Inafanya kazi kwenye Chrome, Safari, Edge na Firefox" },
-    webPoint2: { en: "Cart and checkout on any screen size", sw: "Reki na malipo kwenye ukubwa wowote wa skrini" },
-    webPoint3: { en: "Fast loading on slow or mobile networks", sw: "Inapakia haraka kwenye mtandao wa polepole au wa simu" },
-    openSite: { en: "Open BLF Cashews", sw: "Fungua BLF Cashews" },
-    copyLink: { en: "Copy link", sw: "Nakili kiungo" },
-    copied: { en: "Link copied", sw: "Kiungo kimenakiliwa" },
-    mobileTitle: { en: "On mobile", sw: "Kwenye simu" },
-    mobileDesc: {
-      en: "No app download needed. Add the site to your home screen for one-tap access.",
-      sw: "Huhitaji kupakua programu. Ongeza tovuti kwenye skrini ya mwanzo kwa ufikiaji wa moja kwa bonye.",
+    playLabel: {
+      en: "Order on WhatsApp — Google Play listing coming soon",
+      sw: "Agiza kwenye WhatsApp — listing ya Google Play inakuja",
     },
-    step1: { en: "Open the BLF Cashews link in your phone browser", sw: "Fungua kiungo cha BLF Cashews kwenye kivinjari cha simu" },
-    step2: { en: "Tap the Share or Menu button on your phone", sw: "Bofya kitufe cha Share au Menu kwenye simu" },
-    step3: { en: "Choose “Add to Home Screen” to pin BLF Cashews", sw: "Chagua “Ongeza kwenye Skrini ya Mwanzo” ili kuweka BLF Cashews" },
-    whatsappCta: { en: "Order on WhatsApp", sw: "Agiza kwenye WhatsApp" },
+    availableNote: {
+      en: "Tap a badge to get a WhatsApp message when the app is live, or order fresh cashews today.",
+      sw: "Bofya alama ili kupata ujumbe WhatsApp wakati programu itakapopatikana, au agiza korosho leo.",
+    },
+    webAlt: {
+      en: "Screenshot of the BLF Cashews website open in a desktop browser",
+      sw: "Picha ya skrini ya tovuti ya BLF Cashews ikiwa imefunguliwa kwenye kivinjari cha desktop",
+    },
+    mobileAlt: {
+      en: "Screenshot of the BLF Cashews website on a phone",
+      sw: "Picha ya skrini ya tovuti ya BLF Cashews kwenye simu",
+    },
   },
   contact: {
     badge: { en: "Get in Touch", sw: "Wasiliana Nasi" },

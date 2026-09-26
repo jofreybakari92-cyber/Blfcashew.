@@ -3,7 +3,19 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { CartButton } from "./cart/Cart";
 import { useCart } from "./cart/CartContext";
 import { useI18n, useTheme } from "../lib/i18n";
-import { Sun, Moon, Globe, Menu, X, Home, Package, Award, MessageSquare, HelpCircle, User } from "lucide-react";
+import {
+  Sun,
+  Moon,
+  Globe,
+  Menu,
+  X,
+  Home,
+  Package,
+  Award,
+  MessageSquare,
+  HelpCircle,
+  User,
+} from "lucide-react";
 import blfLogo from "@/assets/blf logo.jpg";
 
 const links = [
@@ -18,6 +30,7 @@ const links = [
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [progress, setProgress] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
@@ -33,11 +46,14 @@ export function Navbar() {
 
   useEffect(() => {
     let ticking = false;
+    let lastY = window.scrollY;
     const update = () => {
       const y = window.scrollY;
       const max = document.documentElement.scrollHeight - window.innerHeight;
       setScrolled(y > 20);
       setProgress(max > 0 ? Math.min(y / max, 1) : 0);
+      setHidden(y > 120 && y > lastY + 4);
+      lastY = y;
       ticking = false;
     };
     const onScroll = () => {
@@ -102,8 +118,6 @@ export function Navbar() {
     return location.pathname === href;
   };
 
-  const toggleLang = () => setLang(lang === "en" ? "sw" : "en");
-
   return (
     <>
       <a href="#main" className="skip-link">
@@ -112,9 +126,15 @@ export function Navbar() {
 
       <nav
         aria-label={t("nav.mainNav")}
-        className={`fixed inset-x-0 z-50 flex justify-center transition-all duration-700 ease-out ${
+        className={`navbar-motion fixed inset-x-0 z-50 flex justify-center ${
           scrolled ? "top-2" : "top-6"
-        } ${mounted ? "translate-y-0 opacity-100" : "-translate-y-6 opacity-0"}`}
+        } ${
+          !mounted
+            ? "-translate-y-6 opacity-0"
+            : hidden
+              ? "pointer-events-none -translate-y-[130%] opacity-0"
+              : "translate-y-0 opacity-100"
+        }`}
       >
         <div
           className={`relative flex w-[calc(100%-20px)] max-w-4xl items-center justify-between gap-2 overflow-hidden rounded-full border backdrop-blur-xl transition-all duration-500 ease-out ${
@@ -171,8 +191,11 @@ export function Navbar() {
 
           <div className="flex items-center gap-0.5 sm:gap-1">
             <CartButton />
-            
-            <label className="theme-switch" aria-label={t("nav.toggleTheme")}>
+
+            <label
+              className={`theme-switch ${theme === "dark" ? "is-dark" : ""}`}
+              aria-label={t("nav.toggleTheme")}
+            >
               <span className="sun">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
                   <g fill="var(--gold)">
@@ -183,7 +206,10 @@ export function Navbar() {
               </span>
               <span className="moon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" aria-hidden="true">
-                  <path d="m223.5 32c-123.5 0-223.5 100.3-223.5 224s100 224 223.5 224c60.6 0 115.5-24.2 155.8-63.4 5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6-96.9 0-175.5-78.8-175.5-176 0-65.8 36-123.1 89.3-153.3 6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z" fill="var(--background)" />
+                  <path
+                    d="m223.5 32c-123.5 0-223.5 100.3-223.5 224s100 224 223.5 224c60.6 0 115.5-24.2 155.8-63.4 5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6-96.9 0-175.5-78.8-175.5-176 0-65.8 36-123.1 89.3-153.3 6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+                    fill="var(--background)"
+                  />
                 </svg>
               </span>
               <input
@@ -196,14 +222,40 @@ export function Navbar() {
               <span className="slider" />
             </label>
 
-            <button
-              onClick={toggleLang}
+            <div
+              role="group"
               aria-label={t("nav.switchLanguage")}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-navy-foreground/70 transition-all hover:bg-white/10 hover:text-navy-foreground lg:h-8 lg:w-8"
+              className="relative flex h-10 items-center rounded-full bg-white/10 p-0.5 transition-all hover:bg-white/15 lg:h-7"
             >
-              <Globe className="h-4 w-4" />
-              <span className="ml-0.5 text-[9px] font-bold uppercase">{lang}</span>
-            </button>
+              <span
+                aria-hidden="true"
+                className={`absolute inset-y-0.5 left-0.5 w-[calc(50%-0.125rem)] rounded-full bg-copper transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                  lang === "sw" ? "translate-x-[calc(100%+0.25rem)]" : "translate-x-0"
+                }`}
+              />
+              <button
+                type="button"
+                onClick={() => setLang("en")}
+                aria-pressed={lang === "en"}
+                aria-label="English"
+                className={`relative z-10 rounded-full px-1.5 text-[9px] font-bold uppercase transition-colors duration-300 ${
+                  lang === "en" ? "text-copper-foreground" : "text-navy-foreground/70"
+                }`}
+              >
+                EN
+              </button>
+              <button
+                type="button"
+                onClick={() => setLang("sw")}
+                aria-pressed={lang === "sw"}
+                aria-label="Kiswahili"
+                className={`relative z-10 rounded-full px-1.5 text-[9px] font-bold uppercase transition-colors duration-300 ${
+                  lang === "sw" ? "text-copper-foreground" : "text-navy-foreground/70"
+                }`}
+              >
+                SW
+              </button>
+            </div>
 
             <OrderCta />
 
@@ -325,6 +377,15 @@ export function Navbar() {
           width: 16px;
           height: 16px;
           display: block;
+          transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .theme-switch.is-dark .sun svg {
+          transform: rotate(180deg) scale(1.12);
+        }
+
+        .theme-switch.is-dark .moon svg {
+          transform: rotate(25deg) scale(1.12);
         }
 
         .theme-switch .sun svg {

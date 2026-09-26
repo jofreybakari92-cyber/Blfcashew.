@@ -49,9 +49,9 @@ const relatedLinks = [
     note: "World Bank",
   },
   {
-    name: "Mhesuma wa Miamboti ya Serikali (e-Jeshō)",
+    name: "Mfumo wa Kielektroniki wa Kutuma, Kupokea na Kufuatilia Malalamiko, Mapendekezo, Maulizo na Pongezi (e-mrejesho)",
     href: "https://emrejesho.gov.go.tz/",
-    note: "e-Jeshō",
+    note: "e-mrejesho",
   },
   {
     name: "Huduma za Serikali kwa DijITALI",

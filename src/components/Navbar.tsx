@@ -192,9 +192,13 @@ export function Navbar() {
           <div className="flex items-center gap-0.5 sm:gap-1">
             <CartButton />
 
-            <label
-              className={`theme-switch ${theme === "dark" ? "is-dark" : ""}`}
+            <button
+              type="button"
+              role="switch"
+              aria-checked={theme === "dark"}
+              onClick={toggleTheme}
               aria-label={t("nav.toggleTheme")}
+              className={`theme-switch ${theme === "dark" ? "is-dark" : ""}`}
             >
               <span className="sun">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
@@ -212,15 +216,8 @@ export function Navbar() {
                   />
                 </svg>
               </span>
-              <input
-                type="checkbox"
-                className="input"
-                checked={theme === "dark"}
-                onChange={toggleTheme}
-                aria-label={t("nav.toggleTheme")}
-              />
               <span className="slider" />
-            </label>
+            </button>
 
             <div
               role="group"
@@ -308,10 +305,16 @@ export function Navbar() {
         .theme-switch {
           font-size: 17px;
           position: relative;
-          display: inline-block;
+          display: inline-flex;
+          align-items: center;
           width: 52px;
           height: 28px;
           flex-shrink: 0;
+          border: none;
+          background: transparent;
+          padding: 0;
+          cursor: pointer;
+          outline: none;
         }
 
         @media (max-width: 1023px) {
@@ -322,15 +325,9 @@ export function Navbar() {
           }
         }
 
-        .theme-switch input {
-          opacity: 0;
-          width: 0;
-          height: 0;
-        }
-
         .theme-switch .slider {
           position: absolute;
-          cursor: pointer;
+          pointer-events: none;
           inset: 0;
           background: linear-gradient(135deg, var(--gold), color-mix(in oklab, var(--gold) 68%, white));
           transition: 0.4s ease;
@@ -408,15 +405,15 @@ export function Navbar() {
           100% { transform: rotate(0deg); }
         }
 
-        .theme-switch input:checked + .slider {
+        .theme-switch[aria-checked="true"] .slider {
           background: linear-gradient(135deg, var(--primary), color-mix(in oklab, var(--primary) 78%, var(--gold)));
         }
 
-        .theme-switch input:focus + .slider {
+        .theme-switch:focus-visible .slider {
           box-shadow: 0 0 0 3px color-mix(in oklab, var(--gold) 40%, transparent);
         }
 
-        .theme-switch input:checked + .slider:before {
+        .theme-switch[aria-checked="true"] .slider:before {
           transform: translateX(24px);
         }
       `}</style>

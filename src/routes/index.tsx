@@ -14,6 +14,7 @@ import { Testimonials } from "@/components/sections/Testimonials";
 import { FAQ } from "@/components/sections/FAQ";
 import { Footer } from "@/components/sections/Footer";
 import { AIRecommendations } from "@/components/ai/AIRecommendations";
+import { News } from "@/components/sections/News";
 import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
@@ -46,6 +47,7 @@ function Index() {
           <Hero />
           <About />
           <Products />
+          <News />
           <AIRecommendations />
           <WhyUs />
           <Testimonials />

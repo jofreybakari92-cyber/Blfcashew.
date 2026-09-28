@@ -119,6 +119,15 @@ const translations = {
       sw: "Tryptophan & magnesi asili husaidia kudhibiti usingizi na kupunguza msongo.",
     },
   },
+  news: {
+    badge: { en: "Latest News", sw: "Habari Mpya" },
+    title: { en: "BLF in the", sw: "BLF katika" },
+    titleAccent: { en: "News", sw: "Habari" },
+    subtitle: {
+      en: "Stay updated on new launches, farm stories, and the latest from the BLF Cashews family.",
+      sw: "Kaa kwenye habari kuhusu vitu vipyao, hadithi za kilimo, na habari za kwa BLF Cashews.",
+    },
+  },
   testimonials: {
     badge: { en: "Testimonials", sw: "Maoni" },
     title: { en: "Loved by snack lovers", sw: "Pendwa na wapendaji vitafunio" },

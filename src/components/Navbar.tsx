@@ -16,7 +16,7 @@ import {
   HelpCircle,
   User,
 } from "lucide-react";
-import blfLogo from "@/assets/blf logo.jpg";
+import blfLogo from "@/assets/blflogo.png";
 
 const links = [
   { href: "#about", labelKey: "nav.about", icon: Home },

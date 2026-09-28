@@ -9,7 +9,7 @@ import {
   Sprout,
 } from "lucide-react";
 import { waLink } from "../WhatsAppButton";
-import logoImg from "@/assets/blf logo.jpg";
+import logoImg from "@/assets/blflogo.png";
 import { useI18n } from "../../lib/i18n";
 
 const relatedLinks = [

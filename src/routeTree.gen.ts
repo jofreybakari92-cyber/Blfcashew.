@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as MainRouteImport } from './routes/main'
 import { Route as FounderRouteImport } from './routes/founder'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiContactRouteImport } from './routes/api/contact'
 
@@ -22,6 +23,11 @@ const MainRoute = MainRouteImport.update({
 const FounderRoute = FounderRouteImport.update({
   id: '/founder',
   path: '/founder',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -37,12 +43,14 @@ const ApiContactRoute = ApiContactRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
   '/founder': typeof FounderRoute
   '/main': typeof MainRoute
   '/api/contact': typeof ApiContactRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
   '/founder': typeof FounderRoute
   '/main': typeof MainRoute
   '/api/contact': typeof ApiContactRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
   '/founder': typeof FounderRoute
   '/main': typeof MainRoute
   '/api/contact': typeof ApiContactRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/founder' | '/main' | '/api/contact'
+  fullPaths: '/' | '/contact' | '/founder' | '/main' | '/api/contact'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/founder' | '/main' | '/api/contact'
-  id: '__root__' | '/' | '/founder' | '/main' | '/api/contact'
+  to: '/' | '/contact' | '/founder' | '/main' | '/api/contact'
+  id: '__root__' | '/' | '/contact' | '/founder' | '/main' | '/api/contact'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContactRoute: typeof ContactRoute
   FounderRoute: typeof FounderRoute
   MainRoute: typeof MainRoute
   ApiContactRoute: typeof ApiContactRoute
@@ -85,6 +95,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FounderRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContactRoute: ContactRoute,
   FounderRoute: FounderRoute,
   MainRoute: MainRoute,
   ApiContactRoute: ApiContactRoute,

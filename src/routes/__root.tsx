@@ -13,7 +13,7 @@ import { A11yProvider } from "../lib/a11y";
 import { AccessibilityMenu } from "@/components/AccessibilityMenu";
 
 import appCss from "../styles.css?url";
-import faviconUrl from "../assets/blf logo.jpg?url";
+import faviconUrl from "../assets/blflogo.png?url";
 
 function NotFoundComponent() {
   return (
@@ -105,7 +105,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.gstatic.com",
         crossOrigin: "anonymous",
       },
-      { rel: "icon", href: faviconUrl, type: "image/jpeg" },
+      { rel: "icon", href: faviconUrl, type: "image/png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {

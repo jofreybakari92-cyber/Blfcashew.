@@ -1,36 +1,8 @@
 import { Bell, Calendar, ArrowRight, Newspaper } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { useI18n } from "../../lib/i18n";
 import { AccentRule } from "../AccentRule";
-import news1 from "@/assets/news-1.png";
-import honeyImg from "@/assets/cashews-honey.png";
-import rawImg from "@/assets/cashews-raw.png";
-
-const newsItems = [
-  {
-    date: "2026-09-28",
-    tag: "Update",
-    title: "BLF Cashews Now Available on Web & Mobile App",
-    summary:
-      "Shop the full range of premium Tanzanian cashews from any device. Order fresh daily and we'll deliver straight to your door.",
-    image: news1,
-  },
-  {
-    date: "2026-09-20",
-    tag: "Quality",
-    title: "New Small-Batch Honey Roast Launches",
-    summary:
-      "Our latest cashew variety is slow-roasted and glazed with pure Tanzanian honey and cinnamon — a sweet crunch you'll love.",
-    image: honeyImg,
-  },
-  {
-    date: "2026-09-12",
-    tag: "Sustainability",
-    title: "Farm-to-Table Commitment to Local Farmers",
-    summary:
-      "We work directly with farming families across Mtwara and Lindi, ensuring fair prices and peak-ripeness at harvest.",
-    image: rawImg,
-  },
-];
+import { newsItems } from "./newsData";
 
 function NewsCard({ n, idx }: { n: (typeof newsItems)[0]; idx: number }) {
   return (
@@ -62,10 +34,14 @@ function NewsCard({ n, idx }: { n: (typeof newsItems)[0]; idx: number }) {
           {n.title}
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{n.summary}</p>
-        <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground/70">
+        <Link
+          to="/news/$slug"
+          params={{ slug: n.slug }}
+          className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-gold"
+        >
           Read more
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-        </span>
+        </Link>
       </div>
     </article>
   );

@@ -127,6 +127,12 @@ const translations = {
       en: "Stay updated on new launches, farm stories, and the latest from the BLF Cashews family.",
       sw: "Kaa kwenye habari kuhusu vitu vipyao, hadithi za kilimo, na habari za kwa BLF Cashews.",
     },
+    notFoundTitle: { en: "Article not found", sw: "Hakuna habari iliyopatikana" },
+    notFoundText: {
+      en: "The article you're looking for doesn't exist or has been moved.",
+      sw: "Habari uliyotafuta haipatikani au imehamishwa.",
+    },
+    backToNews: { en: "Back to news", sw: "Rudi kwenye habari" },
   },
   testimonials: {
     badge: { en: "Testimonials", sw: "Maoni" },

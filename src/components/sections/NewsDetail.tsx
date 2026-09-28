@@ -2,11 +2,11 @@ import { Bell, Calendar, ArrowLeft, ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "../../lib/i18n";
 import { AccentRule } from "../AccentRule";
-import { newsItems } from "./News";
+import { newsItems } from "./newsData";
 
 export function NewsDetail({ slug }: { slug: string }) {
   const { t } = useI18n();
-  const item = newsItems.find((n) => n.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") === slug);
+  const item = newsItems.find((n) => n.slug === slug);
 
   if (!item) {
     return (
@@ -78,7 +78,7 @@ export function NewsDetail({ slug }: { slug: string }) {
             {prev && (
               <Link
                 to="/news/$slug"
-                params={{ slug: prev.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") }}
+                params={{ slug: prev.slug }}
                 className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-gold"
               >
                 <ArrowLeft className="h-4 w-4" />
@@ -90,7 +90,7 @@ export function NewsDetail({ slug }: { slug: string }) {
             {next && (
               <Link
                 to="/news/$slug"
-                params={{ slug: next.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") }}
+                params={{ slug: next.slug }}
                 className="inline-flex items-center gap-2 text-sm font-semibold text-gold transition-colors hover:text-gold"
               >
                 {next.title}
